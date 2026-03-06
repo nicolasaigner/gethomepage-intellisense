@@ -5,3 +5,6 @@ out/
 dist/
 .DS_Store
 Thumbs.db
+
+# Playwright MCP (logs e screenshots com dados sensíveis)
+.playwright-mcp/
