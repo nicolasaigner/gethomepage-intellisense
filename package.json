@@ -3,7 +3,7 @@
   "displayName": "GetHomepage IntelliSense",
   "description": "YAML IntelliSense, autocompletion, validation and snippets for GetHomepage configuration files (settings, services, widgets, bookmarks, docker, kubernetes, proxmox).",
   "version": "0.1.0",
-  "publisher": "nicolasaigner",
+  "publisher": "gethomepage",
   "license": "MIT",
   "homepage": "https://github.com/nicolasaigner/gethomepage-intellisense#readme",
   "bugs": {

@@ -36,7 +36,11 @@ Open an [issue](https://github.com/nicolasaigner/gethomepage-intellisense/issues
 gethomepage-intellisense/
 ├── schemas/                    # JSON Schema files for YAML validation
 │   ├── settings.schema.json
-│   ├── services.schema.json
+│   ├── services.schema.json{
+  "files.associations": {
+    "config/*.yaml": "yaml-homepage"
+  }
+}
 │   ├── widgets.schema.json
 │   ├── bookmarks.schema.json
 │   ├── docker.schema.json
