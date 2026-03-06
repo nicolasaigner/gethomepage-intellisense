@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/docker.schema.json",
+  "title": "GetHomepage Docker Configuration",
+  "description": "Schema para o arquivo docker.yaml do GetHomepage. Documentação: https://gethomepage.dev/configs/docker/",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/definitions/dockerServer"
+  },
+  "definitions": {
+    "dockerServer": {
+      "type": "object",
+      "description": "Configuração de um servidor Docker. A chave é o nome usado em 'server' nos serviços.",
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Endereço IP ou hostname do Docker host."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Porta da API Docker.",
+          "default": 2375
+        },
+        "socket": {
+          "type": "string",
+          "description": "Caminho para o docker.sock. Ex: /var/run/docker.sock"
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Protocolo de conexão.",
+          "enum": ["http", "https"],
+          "default": "http"
+        },
+        "swarm": {
+          "type": "boolean",
+          "description": "Habilitar modo Docker Swarm.",
+          "default": false
+        },
+        "tls": {
+          "type": "object",
+          "description": "Configuração TLS para conexão segura.",
+          "properties": {
+            "keyFile": {
+              "type": "string",
+              "description": "Caminho para key.pem (relativo à pasta config/)."
+            },
+            "certFile": {
+              "type": "string",
+              "description": "Caminho para cert.pem (relativo à pasta config/)."
+            },
+            "caFile": {
+              "type": "string",
+              "description": "Caminho para ca.pem (relativo à pasta config/)."
+            }
+          },
+          "additionalProperties": false
+        },
+        "headers": {
+          "type": "object",
+          "description": "Headers HTTP customizados.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "instanceName": {
+          "type": "string",
+          "description": "Nome da instância (para configuração multi-instância)."
+        }
+      },
+      "oneOf": [
+        { "required": ["socket"] },
+        { "required": ["host"] }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

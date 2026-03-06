@@ -1,0 +1,357 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/settings.schema.json",
+  "title": "GetHomepage Settings",
+  "description": "Schema para o arquivo settings.yaml do GetHomepage. Documentação: https://gethomepage.dev/configs/settings/",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Título da página exibido na aba do navegador.",
+      "default": "Homepage"
+    },
+    "description": {
+      "type": "string",
+      "description": "Descrição da página (meta tag)."
+    },
+    "startUrl": {
+      "type": "string",
+      "description": "URL inicial para instalações PWA.",
+      "default": "/"
+    },
+    "base": {
+      "type": "string",
+      "description": "URL base absoluta para configurações com proxy reverso. Ex: https://homepage.example.com",
+      "format": "uri"
+    },
+    "background": {
+      "description": "Imagem de fundo. Pode ser uma string (URL) ou um objeto com opções avançadas.",
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "URL da imagem de fundo."
+        },
+        {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "string",
+              "description": "Caminho local ou URL remota da imagem."
+            },
+            "blur": {
+              "type": "string",
+              "description": "Nível de desfoque do fundo.",
+              "enum": ["none", "sm", "md", "lg", "xl", "2xl", "3xl"]
+            },
+            "saturate": {
+              "type": "number",
+              "description": "Saturação do fundo (0-100).",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "brightness": {
+              "type": "number",
+              "description": "Brilho do fundo (0-100).",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "opacity": {
+              "type": "number",
+              "description": "Opacidade do fundo (0-100).",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "cardBlur": {
+      "type": "string",
+      "description": "Desfoque dos cards de serviço e bookmarks.",
+      "enum": ["none", "xs", "sm", "md", "lg", "xl", "2xl", "3xl"]
+    },
+    "favicon": {
+      "type": "string",
+      "description": "URL ou caminho para um favicon personalizado."
+    },
+    "theme": {
+      "type": "string",
+      "description": "Tema fixo. Definir desabilita o botão de alternância.",
+      "enum": ["dark", "light"]
+    },
+    "color": {
+      "type": "string",
+      "description": "Paleta de cores da interface.",
+      "enum": [
+        "slate", "gray", "zinc", "neutral", "stone",
+        "amber", "yellow", "lime", "green", "emerald",
+        "teal", "cyan", "sky", "blue", "indigo",
+        "violet", "purple", "fuchsia", "pink", "rose",
+        "red", "white"
+      ]
+    },
+    "headerStyle": {
+      "type": "string",
+      "description": "Estilo do cabeçalho da página.",
+      "enum": ["underlined", "boxed", "clean", "boxedWidgets"]
+    },
+    "language": {
+      "type": "string",
+      "description": "Idioma da interface.",
+      "enum": [
+        "af", "ar", "bg", "ca", "cs", "da", "de", "el", "en", "eo",
+        "es", "eu", "fi", "fr", "he", "hi", "hr", "hu", "id", "it",
+        "ja", "ko", "lv", "ms", "nb-NO", "nl", "no", "pl", "pt",
+        "pt-BR", "ro", "ru", "sk", "sl", "sr", "sv", "te", "th",
+        "tr", "uk", "vi", "yue", "zh-Hans", "zh-Hant"
+      ]
+    },
+    "target": {
+      "type": "string",
+      "description": "Comportamento padrão de abertura de links.",
+      "enum": ["_self", "_blank", "_top"]
+    },
+    "fullWidth": {
+      "type": "boolean",
+      "description": "Usar largura total da janela.",
+      "default": false
+    },
+    "maxGroupColumns": {
+      "type": "integer",
+      "description": "Máximo de colunas para grupos de serviços (5-8).",
+      "minimum": 5,
+      "maximum": 8,
+      "default": 4
+    },
+    "maxBookmarkGroupColumns": {
+      "type": "integer",
+      "description": "Máximo de colunas para grupos de bookmarks (5-8).",
+      "minimum": 5,
+      "maximum": 8,
+      "default": 6
+    },
+    "disableCollapse": {
+      "type": "boolean",
+      "description": "Desabilita o recurso de colapsar seções.",
+      "default": false
+    },
+    "groupsInitiallyCollapsed": {
+      "type": "boolean",
+      "description": "Colapsar todos os grupos por padrão.",
+      "default": false
+    },
+    "useEqualHeights": {
+      "type": "boolean",
+      "description": "Cards com altura igual globalmente.",
+      "default": false
+    },
+    "showStats": {
+      "type": "boolean",
+      "description": "Mostrar estatísticas de containers Docker ao clicar.",
+      "default": false
+    },
+    "statusStyle": {
+      "type": "string",
+      "description": "Estilo do indicador de status dos serviços.",
+      "enum": ["dot", "basic"]
+    },
+    "disableIndexing": {
+      "type": "boolean",
+      "description": "Adiciona meta tag para impedir indexação por motores de busca.",
+      "default": false
+    },
+    "bookmarksStyle": {
+      "type": "string",
+      "description": "Estilo global de exibição dos bookmarks.",
+      "enum": ["icons"]
+    },
+    "instanceName": {
+      "type": "string",
+      "description": "Nome da instância para múltiplas instâncias do Homepage."
+    },
+    "blockHighlights": {
+      "type": "object",
+      "description": "Configuração de destaque por nível de severidade para widgets.",
+      "properties": {
+        "levels": {
+          "type": "object",
+          "properties": {
+            "good": {
+              "type": "string",
+              "description": "Classes Tailwind para nível 'good'. Ex: bg-emerald-500/40 text-emerald-950"
+            },
+            "warn": {
+              "type": "string",
+              "description": "Classes Tailwind para nível 'warn'. Ex: bg-amber-300/30 text-amber-900"
+            },
+            "danger": {
+              "type": "string",
+              "description": "Classes Tailwind para nível 'danger'. Ex: bg-rose-700/45 text-rose-200"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "quicklaunch": {
+      "type": "object",
+      "description": "Configurações do Quick Launch (pesquisa rápida).",
+      "properties": {
+        "searchDescriptions": {
+          "type": "boolean",
+          "description": "Pesquisar nas descrições dos serviços.",
+          "default": false
+        },
+        "hideInternetSearch": {
+          "type": "boolean",
+          "description": "Ocultar opção de busca na internet.",
+          "default": false
+        },
+        "showSearchSuggestions": {
+          "type": "boolean",
+          "description": "Mostrar sugestões de busca.",
+          "default": false
+        },
+        "hideVisitURL": {
+          "type": "boolean",
+          "description": "Ocultar opção de visitar URL.",
+          "default": false
+        },
+        "provider": {
+          "type": "string",
+          "description": "Provedor de busca para o Quick Launch.",
+          "enum": ["google", "duckduckgo", "bing", "baidu", "brave"]
+        },
+        "url": {
+          "type": "string",
+          "description": "URL personalizada para provedor de busca custom."
+        }
+      },
+      "additionalProperties": false
+    },
+    "providers": {
+      "type": "object",
+      "description": "Credenciais compartilhadas de provedores de API. A chave é o nome do provedor.",
+      "properties": {
+        "openweathermap": {
+          "type": "string",
+          "description": "API key do OpenWeatherMap."
+        },
+        "weatherapi": {
+          "type": "string",
+          "description": "API key do WeatherAPI."
+        },
+        "finnhub": {
+          "type": "string",
+          "description": "API key do Finnhub (stocks)."
+        },
+        "longhorn": {
+          "type": "object",
+          "description": "Configuração do Longhorn provider.",
+          "properties": {
+            "url": { "type": "string", "description": "URL da API do Longhorn." },
+            "username": { "type": "string" },
+            "password": { "type": "string" }
+          },
+          "required": ["url"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "pwa": {
+      "type": "object",
+      "description": "Configurações de Progressive Web App (PWA).",
+      "properties": {
+        "icons": {
+          "type": "array",
+          "description": "Ícones do PWA.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "src": { "type": "string", "description": "Caminho ou URL do ícone." },
+              "type": { "type": "string", "description": "Tipo MIME do ícone.", "default": "image/png" },
+              "sizes": { "type": "string", "description": "Dimensões do ícone. Ex: 192x192" }
+            },
+            "required": ["src"]
+          }
+        },
+        "shortcuts": {
+          "type": "array",
+          "description": "Atalhos do PWA.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string", "description": "Nome do atalho." },
+              "url": { "type": "string", "description": "URL do atalho. Suporta sintaxe #tab." }
+            },
+            "required": ["name", "url"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "layout": {
+      "type": "object",
+      "description": "Configuração de layout por grupo. As chaves são os nomes dos grupos definidos em services.yaml e bookmarks.yaml.",
+      "additionalProperties": {
+        "$ref": "#/definitions/layoutGroup"
+      }
+    }
+  },
+  "definitions": {
+    "layoutGroup": {
+      "type": "object",
+      "description": "Configuração de layout para um grupo específico.",
+      "properties": {
+        "style": {
+          "type": "string",
+          "description": "Estilo de layout do grupo.",
+          "enum": ["column", "row"]
+        },
+        "columns": {
+          "type": "integer",
+          "description": "Número de colunas (usado com style: row).",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "header": {
+          "type": "boolean",
+          "description": "Mostrar/ocultar cabeçalho do grupo.",
+          "default": true
+        },
+        "icon": {
+          "type": "string",
+          "description": "Ícone do grupo. Suporta mdi-NOME-#COR, si-NOME, sh-NOME, URL ou nome de arquivo."
+        },
+        "tab": {
+          "type": "string",
+          "description": "Nome da aba (para layout com abas)."
+        },
+        "initiallyCollapsed": {
+          "type": "boolean",
+          "description": "Iniciar o grupo colapsado.",
+          "default": false
+        },
+        "disableCollapse": {
+          "type": "boolean",
+          "description": "Desabilitar colapso para este grupo específico.",
+          "default": false
+        },
+        "useEqualHeights": {
+          "type": "boolean",
+          "description": "Cards com altura igual neste grupo.",
+          "default": false
+        },
+        "iconsOnly": {
+          "type": "boolean",
+          "description": "Exibir apenas ícones (para bookmarks).",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

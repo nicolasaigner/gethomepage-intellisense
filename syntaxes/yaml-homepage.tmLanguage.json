@@ -1,0 +1,9 @@
+{
+  "scopeName": "source.yaml-homepage",
+  "name": "YAML (GetHomepage)",
+  "patterns": [
+    {
+      "include": "source.yaml"
+    }
+  ]
+}

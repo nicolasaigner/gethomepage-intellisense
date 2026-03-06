@@ -1,0 +1,116 @@
+{
+  "name": "gethomepage-intellisense",
+  "displayName": "GetHomepage IntelliSense",
+  "description": "YAML IntelliSense, autocompletion, validation and snippets for GetHomepage configuration files (settings, services, widgets, bookmarks, docker, kubernetes, proxmox).",
+  "version": "0.1.0",
+  "publisher": "nicolasaigner",
+  "license": "MIT",
+  "homepage": "https://github.com/nicolasaigner/gethomepage-intellisense#readme",
+  "bugs": {
+    "url": "https://github.com/nicolasaigner/gethomepage-intellisense/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicolasaigner/gethomepage-intellisense"
+  },
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "homepage",
+    "gethomepage",
+    "dashboard",
+    "yaml",
+    "homelab",
+    "docker",
+    "kubernetes",
+    "proxmox",
+    "self-hosted"
+  ],
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
+  },
+  "extensionDependencies": [
+    "redhat.vscode-yaml"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "yaml-homepage",
+        "aliases": [
+          "YAML (GetHomepage)",
+          "yaml-homepage"
+        ],
+        "extensions": [],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "yaml-homepage",
+        "scopeName": "source.yaml-homepage",
+        "path": "./syntaxes/yaml-homepage.tmLanguage.json"
+      }
+    ],
+    "yamlValidation": [
+      {
+        "fileMatch": "**/settings.yaml",
+        "url": "./schemas/settings.schema.json"
+      },
+      {
+        "fileMatch": "**/services.yaml",
+        "url": "./schemas/services.schema.json"
+      },
+      {
+        "fileMatch": "**/widgets.yaml",
+        "url": "./schemas/widgets.schema.json"
+      },
+      {
+        "fileMatch": "**/bookmarks.yaml",
+        "url": "./schemas/bookmarks.schema.json"
+      },
+      {
+        "fileMatch": "**/docker.yaml",
+        "url": "./schemas/docker.schema.json"
+      },
+      {
+        "fileMatch": "**/kubernetes.yaml",
+        "url": "./schemas/kubernetes.schema.json"
+      },
+      {
+        "fileMatch": "**/proxmox.yaml",
+        "url": "./schemas/proxmox.schema.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "yaml-homepage",
+        "path": "./snippets/gethomepage.code-snippets"
+      }
+    ],
+    "configurationDefaults": {
+      "[yaml-homepage]": {
+        "editor.quickSuggestions": {
+          "other": true,
+          "strings": true
+        },
+        "editor.suggest.showSnippets": true,
+        "editor.snippetSuggestions": "top"
+      }
+    }
+  },
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.0.0"
+  }
+}

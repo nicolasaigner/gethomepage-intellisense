@@ -1,0 +1,492 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/services.schema.json",
+  "title": "GetHomepage Services",
+  "description": "Schema para o arquivo services.yaml do GetHomepage. Documentação: https://gethomepage.dev/configs/services/",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/serviceGroup"
+  },
+  "definitions": {
+    "serviceGroup": {
+      "type": "object",
+      "description": "Grupo de serviços. A chave é o nome do grupo exibido no dashboard.",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            { "$ref": "#/definitions/serviceEntry" },
+            { "$ref": "#/definitions/nestedServiceGroup" }
+          ]
+        }
+      }
+    },
+    "nestedServiceGroup": {
+      "type": "object",
+      "description": "Grupo aninhado de serviços.",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/serviceEntry"
+        }
+      }
+    },
+    "serviceEntry": {
+      "type": "object",
+      "description": "Entrada de serviço. A chave é o nome exibido no card.",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/definitions/serviceProperties"
+      }
+    },
+    "serviceProperties": {
+      "type": "object",
+      "description": "Propriedades de um serviço individual.",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "URL do serviço (link ao clicar no card)."
+        },
+        "icon": {
+          "type": "string",
+          "description": "Ícone do serviço. Aceita: URL, mdi-NOME, si-NOME, sh-NOME, ou nome de arquivo local em /icons/."
+        },
+        "description": {
+          "type": "string",
+          "description": "Descrição exibida abaixo do nome do serviço."
+        },
+        "id": {
+          "type": "string",
+          "description": "ID personalizado para targeting com CSS customizado."
+        },
+        "target": {
+          "type": "string",
+          "description": "Comportamento de abertura do link.",
+          "enum": ["_self", "_blank", "_top"]
+        },
+        "siteMonitor": {
+          "type": "string",
+          "description": "URL para monitorar disponibilidade do serviço (substitui 'ping' que foi depreciado)."
+        },
+        "statusStyle": {
+          "type": "string",
+          "description": "Estilo do indicador de status.",
+          "enum": ["dot", "basic"]
+        },
+        "server": {
+          "type": "string",
+          "description": "Nome do servidor Docker (deve corresponder a uma chave em docker.yaml)."
+        },
+        "container": {
+          "type": "string",
+          "description": "Nome do container Docker."
+        },
+        "showStats": {
+          "type": "boolean",
+          "description": "Mostrar estatísticas do container ao clicar."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Namespace Kubernetes."
+        },
+        "app": {
+          "type": "string",
+          "description": "Label selector do app Kubernetes."
+        },
+        "podSelector": {
+          "type": "string",
+          "description": "Seletor de pod Kubernetes customizado."
+        },
+        "proxmoxNode": {
+          "type": "string",
+          "description": "Nome do nó Proxmox (deve corresponder a uma chave em proxmox.yaml)."
+        },
+        "proxmoxVMID": {
+          "type": "integer",
+          "description": "ID da VM ou LXC no Proxmox."
+        },
+        "proxmoxType": {
+          "type": "string",
+          "description": "Tipo de virtualização no Proxmox.",
+          "enum": ["qemu", "lxc"],
+          "default": "qemu"
+        },
+        "ping": {
+          "type": "string",
+          "description": "⚠️ DEPRECIADO: Use 'siteMonitor'. Host para verificar disponibilidade.",
+          "deprecated": true
+        },
+        "widget": {
+          "$ref": "#/definitions/widget",
+          "description": "Widget único para exibir dados do serviço."
+        },
+        "widgets": {
+          "type": "array",
+          "description": "Múltiplos widgets para o serviço.",
+          "items": {
+            "$ref": "#/definitions/widget"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "widget": {
+      "type": "object",
+      "description": "Configuração de widget do serviço.",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Tipo do widget. Veja https://gethomepage.dev/widgets/ para lista completa.",
+          "enum": [
+            "adguard", "apcups", "arcane", "argocd", "atsumeru", "audiobookshelf",
+            "authentik", "autobrr", "azuredevops", "backrest", "bazarr", "beszel",
+            "booklore", "caddy", "calendar", "calibreweb", "changedetectionio",
+            "channelsdvrserver", "checkmk", "cloudflared", "coinmarketcap",
+            "crowdsec", "customapi", "deluge", "develancacheui", "diskstation",
+            "dispatcharr", "dockhand", "downloadstation", "emby", "esphome",
+            "evcc", "filebrowser", "fileflows", "firefly", "flood", "freshrss",
+            "frigate", "fritzbox", "gamedig", "gatus", "ghostfolio", "gitea",
+            "gitlab", "glances", "gluetun", "gotify", "grafana", "hdhomerun",
+            "headscale", "healthchecks", "homeassistant", "homebox", "homebridge",
+            "immich", "jackett", "jdownloader", "jellyfin", "jellystat",
+            "karakeep", "kavita", "komga", "komodo", "kopia", "kubernetes",
+            "lidarr", "linkwarden", "lubelogger", "mailcow", "mastodon",
+            "mealie", "medusa", "mikrotik", "minecraft", "miniflux", "mjpeg",
+            "moonraker", "mylar", "myspeed", "navidrome", "netalertx", "netdata",
+            "nextcloud", "nextdns", "npm", "nzbget", "octoprint", "omada",
+            "ombi", "opendtu", "openmediavault", "openwrt", "opnsense",
+            "overseerr", "pangolin", "paperlessngx", "peanut", "pfsense",
+            "photoprism", "pihole", "plantit", "plex", "portainer", "prometheus",
+            "prometheusmetric", "prowlarr", "proxmox", "proxmoxbackupserver",
+            "pterodactyl", "pyload", "qbittorrent", "qnap", "radarr", "readarr",
+            "romm", "rutorrent", "sabnzbd", "scrutiny", "seerr", "slskd",
+            "sonarr", "speedtest", "spoolman", "stash", "stocks", "strelaysrv",
+            "suwayomi", "swagdashboard", "tailscale", "tandoor", "tautulli",
+            "tdarr", "technitium", "tracearr", "traefik", "transmission",
+            "trilium", "truenas", "tubearchivist", "unifi", "unmanic", "unraid",
+            "uptimekuma", "uptimerobot", "urbackup", "vikunja", "wallos",
+            "watchtower", "wgeasy", "whatsupdocker", "xteve", "yourspotify",
+            "zabbix", "iframe"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": "URL da API do serviço."
+        },
+        "key": {
+          "type": "string",
+          "description": "Chave de API ou token de autenticação."
+        },
+        "password": {
+          "type": "string",
+          "description": "Senha de autenticação."
+        },
+        "username": {
+          "type": "string",
+          "description": "Nome de usuário para autenticação."
+        },
+        "headers": {
+          "type": "object",
+          "description": "Headers HTTP customizados para requisições à API.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "description": "Campos a serem exibidos no widget (varia por tipo).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "env": {
+          "type": ["integer", "string"],
+          "description": "ID do environment (Portainer)."
+        },
+        "node": {
+          "type": "string",
+          "description": "Nome do nó específico (Proxmox)."
+        },
+        "slug": {
+          "type": "string",
+          "description": "Slug da status page (Uptime Kuma)."
+        },
+        "site": {
+          "type": "string",
+          "description": "Nome do site (UniFi)."
+        },
+        "version": {
+          "type": "integer",
+          "description": "Versão da API (Pi-hole: 5 ou 6, Glances: 3 ou 4, Grafana: 1 ou 2)."
+        },
+        "enableQueue": {
+          "type": "boolean",
+          "description": "Mostrar fila detalhada (Sonarr/Radarr)."
+        },
+        "enableBlocks": {
+          "type": "boolean",
+          "description": "Habilitar blocos de informação (Emby).",
+          "default": false
+        },
+        "enableNowPlaying": {
+          "type": "boolean",
+          "description": "Mostrar mídia em reprodução (Emby/Jellyfin).",
+          "default": true
+        },
+        "enableUser": {
+          "type": "boolean",
+          "description": "Mostrar usuário (Emby).",
+          "default": false
+        },
+        "enableMediaControl": {
+          "type": "boolean",
+          "description": "Habilitar controles de mídia (Emby).",
+          "default": true
+        },
+        "showEpisodeNumber": {
+          "type": "boolean",
+          "description": "Mostrar número do episódio (Emby).",
+          "default": false
+        },
+        "expandOneStreamToTwoRows": {
+          "type": "boolean",
+          "description": "Expandir stream único para duas linhas (Emby).",
+          "default": true
+        },
+        "enableRecentEvents": {
+          "type": "boolean",
+          "description": "Mostrar eventos recentes (Frigate).",
+          "default": false
+        },
+        "alerts": {
+          "type": "string",
+          "description": "Fonte de alertas (Grafana).",
+          "enum": ["grafana", "alertmanager"]
+        },
+        "environment": {
+          "type": "string",
+          "description": "Nome ou ID do environment (Dockhand)."
+        },
+        "custom": {
+          "type": "array",
+          "description": "Estados/templates customizados (Home Assistant).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "state": { "type": "string", "description": "Entity ID do Home Assistant." },
+              "template": { "type": "string", "description": "Template Jinja2." },
+              "label": { "type": "string", "description": "Label de exibição." },
+              "value": { "type": "string", "description": "Template de valor." }
+            }
+          }
+        },
+        "refreshInterval": {
+          "type": "integer",
+          "description": "Intervalo de atualização em milissegundos (Custom API, iFrame).",
+          "default": 10000
+        },
+        "method": {
+          "type": "string",
+          "description": "Método HTTP (Custom API).",
+          "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"],
+          "default": "GET"
+        },
+        "requestBody": {
+          "description": "Corpo da requisição (Custom API).",
+          "oneOf": [
+            { "type": "string" },
+            { "type": "object" }
+          ]
+        },
+        "display": {
+          "type": "string",
+          "description": "Modo de exibição (Custom API).",
+          "enum": ["block", "list", "dynamic-list"]
+        },
+        "mappings": {
+          "type": "array",
+          "description": "Mapeamentos de campos (Custom API).",
+          "items": {
+            "$ref": "#/definitions/customApiMapping"
+          }
+        },
+        "src": {
+          "type": "string",
+          "description": "URL a ser incorporada (iFrame)."
+        },
+        "classes": {
+          "type": "string",
+          "description": "Classes Tailwind de altura (iFrame)."
+        },
+        "referrerPolicy": {
+          "type": "string",
+          "description": "Política de referrer (iFrame)."
+        },
+        "allowPolicy": {
+          "type": "string",
+          "description": "Política de permissões (iFrame)."
+        },
+        "allowFullscreen": {
+          "type": "boolean",
+          "description": "Permitir tela cheia (iFrame).",
+          "default": true
+        },
+        "loadingStrategy": {
+          "type": "string",
+          "description": "Estratégia de carregamento (iFrame).",
+          "enum": ["eager", "lazy"]
+        },
+        "allowScrolling": {
+          "type": "string",
+          "description": "Permitir scroll (iFrame).",
+          "enum": ["yes", "no"]
+        },
+        "highlight": {
+          "$ref": "#/definitions/highlight",
+          "description": "Regras de destaque para métricas do widget."
+        }
+      },
+      "additionalProperties": true
+    },
+    "customApiMapping": {
+      "type": "object",
+      "description": "Mapeamento de campo para Custom API.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "Caminho do campo usando notação dot (ex: data.value)."
+        },
+        "label": {
+          "type": "string",
+          "description": "Rótulo de exibição."
+        },
+        "format": {
+          "type": "string",
+          "description": "Formato de exibição do valor.",
+          "enum": ["text", "number", "float", "percent", "duration", "bytes", "bitrate", "size", "date", "relativeDate"]
+        },
+        "remap": {
+          "type": "array",
+          "description": "Mapeamento de valores.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {},
+              "to": { "type": "string" }
+            }
+          }
+        },
+        "scale": {
+          "type": "number",
+          "description": "Fator de multiplicação."
+        },
+        "prefix": {
+          "type": "string",
+          "description": "Prefixo adicionado ao valor."
+        },
+        "suffix": {
+          "type": "string",
+          "description": "Sufixo adicionado ao valor."
+        },
+        "additionalField": {
+          "type": "object",
+          "description": "Campo secundário (modo lista).",
+          "properties": {
+            "field": { "type": "string" },
+            "label": { "type": "string" },
+            "format": { "type": "string" }
+          }
+        }
+      }
+    },
+    "highlight": {
+      "type": "object",
+      "description": "Regras de destaque para campos do widget.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "numeric": {
+            "type": "array",
+            "description": "Regras numéricas de destaque.",
+            "items": { "$ref": "#/definitions/highlightNumericRule" }
+          },
+          "string": {
+            "type": "array",
+            "description": "Regras de texto de destaque.",
+            "items": { "$ref": "#/definitions/highlightStringRule" }
+          },
+          "valueOnly": {
+            "type": "boolean",
+            "description": "Destacar apenas a parte do valor.",
+            "default": false
+          }
+        }
+      }
+    },
+    "highlightNumericRule": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Nível de severidade.",
+          "enum": ["good", "warn", "danger"]
+        },
+        "when": {
+          "type": "string",
+          "description": "Operador de comparação numérica.",
+          "enum": ["gt", "gte", "lt", "lte", "eq", "ne", "between", "outside"]
+        },
+        "value": {
+          "type": "number",
+          "description": "Valor de comparação."
+        },
+        "negate": {
+          "type": "boolean",
+          "description": "Inverter a regra.",
+          "default": false
+        }
+      },
+      "required": ["level", "when", "value"]
+    },
+    "highlightStringRule": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Nível de severidade.",
+          "enum": ["good", "warn", "danger"]
+        },
+        "when": {
+          "type": "string",
+          "description": "Operador de comparação de texto.",
+          "enum": ["equals", "includes", "startsWith", "endsWith", "regex"]
+        },
+        "value": {
+          "type": "string",
+          "description": "Valor de comparação."
+        },
+        "negate": {
+          "type": "boolean",
+          "description": "Inverter a regra.",
+          "default": false
+        },
+        "caseSensitive": {
+          "type": "boolean",
+          "description": "Comparação sensível a maiúsculas/minúsculas.",
+          "default": false
+        },
+        "flags": {
+          "type": "string",
+          "description": "Flags de regex (quando when=regex)."
+        }
+      },
+      "required": ["level", "when", "value"]
+    }
+  }
+}

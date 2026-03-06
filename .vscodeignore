@@ -1,0 +1,12 @@
+.vscode-test/
+.vscode/
+.github/
+out/
+src/
+node_modules/
+*.vsix
+tsconfig.json
+*.ts
+.gitignore
+.editorconfig
+CONTRIBUTING.md

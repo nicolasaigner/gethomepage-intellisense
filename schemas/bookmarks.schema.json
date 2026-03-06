@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/bookmarks.schema.json",
+  "title": "GetHomepage Bookmarks",
+  "description": "Schema para o arquivo bookmarks.yaml do GetHomepage. Documentação: https://gethomepage.dev/configs/bookmarks/",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/bookmarkGroup"
+  },
+  "definitions": {
+    "bookmarkGroup": {
+      "type": "object",
+      "description": "Grupo de bookmarks. A chave é o nome do grupo exibido no dashboard.",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/bookmarkEntry"
+        }
+      }
+    },
+    "bookmarkEntry": {
+      "type": "object",
+      "description": "Bookmark. A chave é o nome exibido.",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/bookmarkProperties"
+        },
+        "minItems": 1,
+        "maxItems": 1
+      }
+    },
+    "bookmarkProperties": {
+      "type": "object",
+      "description": "Propriedades de um bookmark.",
+      "required": ["href"],
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "URL do bookmark."
+        },
+        "abbr": {
+          "type": "string",
+          "description": "Abreviação de 2 letras (fallback quando não há ícone).",
+          "maxLength": 2
+        },
+        "icon": {
+          "type": "string",
+          "description": "Ícone do bookmark. Aceita: URL, mdi-NOME, si-NOME, sh-NOME, ou nome de arquivo."
+        },
+        "description": {
+          "type": "string",
+          "description": "Descrição do bookmark."
+        },
+        "id": {
+          "type": "string",
+          "description": "ID personalizado para targeting com CSS customizado."
+        },
+        "target": {
+          "type": "string",
+          "description": "Onde abrir o link.",
+          "enum": ["_self", "_blank", "_top"]
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
