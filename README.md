@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://gethomepage.dev/assets/banner_light%402x.png" alt="GetHomepage" width="500" />
+  <img src="https://gethomepage.dev/assets/banner_dark%402x.png" alt="GetHomepage" width="500" />
 </p>
 
 <h1 align="center">GetHomepage IntelliSense</h1>
@@ -73,8 +73,8 @@ After installing, add the following to your workspace's `.vscode/settings.json` 
 {
   "files.associations": {
     // Adjust the path to match your project structure
-    "config/*.yaml": "yaml-homepage"
-  }
+    "config/*.yaml": "yaml-homepage",
+  },
 }
 ```
 
@@ -89,8 +89,8 @@ After installing, add the following to your workspace's `.vscode/settings.json` 
 >     "config/bookmarks.yaml": "yaml-homepage",
 >     "config/docker.yaml": "yaml-homepage",
 >     "config/kubernetes.yaml": "yaml-homepage",
->     "config/proxmox.yaml": "yaml-homepage"
->   }
+>     "config/proxmox.yaml": "yaml-homepage",
+>   },
 > }
 > ```
 
@@ -134,7 +134,10 @@ All **151** service widget types are recognized and validated:
 <details>
 <summary>Click to expand full list</summary>
 
-`adguard` · `apcups` · `argocd` · `audiobookshelf` · `authentik` · `autobrr` · `bazarr` · `caddy` · `calendar` · `calibreweb` · `changedetectionio` · `cloudflared` · `customapi` · `deluge` · `dockhand` · `emby` · `esphome` · `evcc` · `filebrowser` · `firefly` · `flood` · `freshrss` · `frigate` · `fritzbox` · `gamedig` · `gatus` · `ghostfolio` · `gitea` · `gitlab` · `glances` · `gluetun` · `gotify` · `grafana` · `hdhomerun` · `headscale` · `healthchecks` · `homeassistant` · `homebox` · `homebridge` · `immich` · `jackett` · `jdownloader` · `jellyfin` · `jellystat` · `kavita` · `komga` · `komodo` · `kopia` · `lidarr` · `linkwarden` · `lubelogger` · `mailcow` · `mastodon` · `mealie` · `medusa` · `mikrotik` · `minecraft` · `miniflux` · `moonraker` · `mylar` · `myspeed` · `navidrome` · `netalertx` · `netdata` · `nextcloud` · `nextdns` · `npm` · `nzbget` · `octoprint` · `omada` · `ombi` · `opendtu` · `openmediavault` · `openwrt` · `opnsense` · `overseerr` · `paperlessngx` · `peanut` · `pfsense` · `photoprism` · `pihole` · `plantit` · `plex` · `portainer` · `prometheus` · `prowlarr` · `proxmox` · `proxmoxbackupserver` · `pterodactyl` · `pyload` · `qbittorrent` · `qnap` · `radarr` · `readarr` · `romm` · `rutorrent` · `sabnzbd` · `scrutiny` · `seerr` · `slskd` · `sonarr` · `speedtest` · `spoolman` · `stash` · `strelaysrv` · `suwayomi` · `tailscale` · `tandoor` · `tautulli` · `tdarr` · `technitium` · `traefik` · `transmission` · `trilium` · `truenas` · `tubearchivist` · `unifi` · `unmanic` · `unraid` · `uptimekuma` · `uptimerobot` · `urbackup` · `vikunja` · `wallos` · `watchtower` · `wgeasy` · `whatsupdocker` · `xteve` · `zabbix`
+`adguard` · `apcups` · `argocd` · `audiobookshelf` · `authentik` · `autobrr` · `bazarr` · `caddy` · `calendar` · `calibreweb` · `changedetectionio` · `cloudflared` · `customapi` · `deluge` · `dockhand` · `emby` · `esphome` · `evcc` · `filebrowser` · `firefly` · `flood` · `freshrss` · `frigate` · `fritzbox` · `gamedig` · `gatus` · `ghostfolio` · `gitea` · `gitlab` · `glances` · `gluetun` · `gotify` · `grafana` · `hdhomerun` · `headscale` · `healthchecks` · `homeassistant` · `homebox` ·
+`homebridge` · `immich` · `jackett` · `jdownloader` · `jellyfin` · `jellystat` · `kavita` · `komga` · `komodo` · `kopia` · `lidarr` · `linkwarden` · `lubelogger` · `mailcow` · `mastodon` · `mealie` · `medusa` · `mikrotik` · `minecraft` · `miniflux` · `moonraker` · `mylar` · `myspeed` · `navidrome` · `netalertx` · `netdata` · `nextcloud` · `nextdns` · `npm` · `nzbget` · `octoprint` · `omada` · `ombi` · `opendtu` · `openmediavault` · `openwrt` · `opnsense` · `overseerr` · `paperlessngx` · `peanut`
+· `pfsense` · `photoprism` · `pihole` · `plantit` · `plex` · `portainer` · `prometheus` · `prowlarr` · `proxmox` · `proxmoxbackupserver` · `pterodactyl` · `pyload` · `qbittorrent` · `qnap` · `radarr` · `readarr` · `romm` · `rutorrent` · `sabnzbd` · `scrutiny` · `seerr` · `slskd` · `sonarr` · `speedtest` · `spoolman` · `stash` · `strelaysrv` · `suwayomi` · `tailscale` · `tandoor` · `tautulli` · `tdarr` · `technitium` · `traefik` · `transmission` · `trilium` · `truenas` · `tubearchivist` · `unifi`
+· `unmanic` · `unraid` · `uptimekuma` · `uptimerobot` · `urbackup` · `vikunja` · `wallos` · `watchtower` · `wgeasy` · `whatsupdocker` · `xteve` · `zabbix`
 
 </details>
 
