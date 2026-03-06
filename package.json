@@ -2,7 +2,7 @@
   "name": "gethomepage-intellisense",
   "displayName": "GetHomepage IntelliSense",
   "description": "YAML IntelliSense, autocompletion, validation and snippets for GetHomepage configuration files (settings, services, widgets, bookmarks, docker, kubernetes, proxmox).",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "gethomepage",
   "icon": "icon.png",
   "license": "MIT",
