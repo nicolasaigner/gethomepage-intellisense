@@ -9,11 +9,12 @@
 </p>
 
 <p align="center">
+  
   <a href="https://marketplace.visualstudio.com/items?itemName=gethomepage.gethomepage-intellisense">
-    <img src="https://img.shields.io/visual-studio-marketplace/v/gethomepage.gethomepage-intellisense?style=flat-square&label=VS%20Marketplace" alt="Version" />
+    <img src="https://vsmarketplacebadges.dev/version/gethomepage.gethomepage-intellisense.svg" alt="Version" />
   </a>
   <a href="https://marketplace.visualstudio.com/items?itemName=gethomepage.gethomepage-intellisense">
-    <img src="https://img.shields.io/visual-studio-marketplace/i/gethomepage.gethomepage-intellisense?style=flat-square" alt="Installs" />
+    <img src="https://vsmarketplacebadges.dev/installs/gethomepage.gethomepage-intellisense.svg" alt="Installs" />
   </a>
   <a href="https://github.com/nicolasaigner/gethomepage-intellisense/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/nicolasaigner/gethomepage-intellisense?style=flat-square" alt="License" />
