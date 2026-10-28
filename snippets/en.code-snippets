@@ -1,0 +1,421 @@
+{
+  "Service": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "service",
+      "novo serviço",
+      "servico",
+      "new service"
+    ],
+    "description": "Create a service card with an integration widget.",
+    "body": [
+      "- ${1:Service Name}:",
+      "    icon: ${2:https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/${3:icon}.svg}",
+      "    href: ${4:http://ip:port}",
+      "    description: ${5:Service description}",
+      "    widget:",
+      "      type: ${6|adguard,apcups,argocd,audiobookshelf,authentik,autobrr,bazarr,caddy,calendar,calibreweb,changedetectionio,cloudflared,customapi,deluge,dockhand,emby,esphome,evcc,filebrowser,firefly,flood,freshrss,frigate,fritzbox,gamedig,gatus,ghostfolio,gitea,gitlab,glances,gluetun,gotify,grafana,hdhomerun,headscale,healthchecks,homeassistant,homebox,homebridge,immich,jackett,jdownloader,jellyfin,jellystat,kavita,komga,komodo,kopia,lidarr,linkwarden,lubelogger,mailcow,mastodon,mealie,medusa,mikrotik,minecraft,miniflux,moonraker,mylar,myspeed,navidrome,netalertx,netdata,nextcloud,nextdns,npm,nzbget,octoprint,omada,ombi,opendtu,openmediavault,openwrt,opnsense,overseerr,paperlessngx,peanut,pfsense,photoprism,pihole,plantit,plex,portainer,prometheus,prowlarr,proxmox,proxmoxbackupserver,pterodactyl,pyload,qbittorrent,qnap,radarr,readarr,romm,rutorrent,sabnzbd,scrutiny,seerr,slskd,sonarr,speedtest,spoolman,stash,strelaysrv,suwayomi,tailscale,tandoor,tautulli,tdarr,technitium,traefik,transmission,trilium,truenas,tubearchivist,unifi,unmanic,unraid,uptimekuma,uptimerobot,urbackup,vikunja,wallos,watchtower,wgeasy,whatsupdocker,xteve,zabbix|}",
+      "      url: ${7:http://ip:port}",
+      "      key: ${8:api_key}"
+    ]
+  },
+  "Service simple": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "service-simple",
+      "serviço simples",
+      "servico simples",
+      "simple service"
+    ],
+    "description": "Create a basic service card without a widget.",
+    "body": [
+      "- ${1:Service Name}:",
+      "    icon: ${2:https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/${3:icon}.svg}",
+      "    href: ${4:http://ip:port}",
+      "    description: ${5:Service description}"
+    ]
+  },
+  "Service proxmox": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "service-proxmox",
+      "serviço proxmox",
+      "proxmox service"
+    ],
+    "description": "Create a service card linked to a Proxmox VM or LXC.",
+    "body": [
+      "- ${1:Service Name}:",
+      "    icon: ${2:https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/${3:icon}.svg}",
+      "    href: ${4:http://ip:port}",
+      "    description: ${5:Service description}",
+      "    proxmoxNode: ${6:pve}",
+      "    proxmoxVMID: ${7:100}",
+      "    proxmoxType: ${8|lxc,qemu|}",
+      "    widget:",
+      "      type: ${9:customapi}",
+      "      url: ${10:http://ip:port}"
+    ]
+  },
+  "Service docker": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "service-docker",
+      "serviço docker",
+      "docker service"
+    ],
+    "description": "Create a service card linked to a Docker container.",
+    "body": [
+      "- ${1:Service Name}:",
+      "    icon: ${2:https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/${3:icon}.svg}",
+      "    href: ${4:http://ip:port}",
+      "    description: ${5:Service description}",
+      "    server: ${6:my-docker}",
+      "    container: ${7:container_name}",
+      "    widget:",
+      "      type: ${8:customapi}",
+      "      url: ${9:http://ip:port}"
+    ]
+  },
+  "Group": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "group",
+      "grupo",
+      "service-group",
+      "service group"
+    ],
+    "description": "Create a group containing a service card.",
+    "body": [
+      "# =============================================================================",
+      "# ${1:GROUP NAME}",
+      "# =============================================================================",
+      "- ${2:Group Name}:",
+      "    - ${3:First Service}:",
+      "        icon: ${4:icon}",
+      "        href: ${5:http://ip:port}",
+      "        description: ${6:Description}"
+    ]
+  },
+  "Bookmark": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "bookmark",
+      "favorito"
+    ],
+    "description": "Create a bookmark with a link and icon.",
+    "body": [
+      "- ${1:Bookmark Name}:",
+      "    - abbr: ${2:AB}",
+      "      href: ${3:https://example.com}",
+      "      description: ${4:Description}",
+      "      icon: ${5:https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/${6:icon}.svg}"
+    ]
+  },
+  "Bookmark group": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "bookmark-group",
+      "grupo bookmarks",
+      "grupo favoritos",
+      "bookmarks group"
+    ],
+    "description": "Create a group containing a bookmark.",
+    "body": [
+      "- ${1:Group Name}:",
+      "    - ${2:First Bookmark}:",
+      "        - abbr: ${3:AB}",
+      "          href: ${4:https://example.com}",
+      "          description: ${5:Description}",
+      "          icon: ${6:https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/${7:icon}.svg}"
+    ]
+  },
+  "Glances": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "glances",
+      "widget glances",
+      "monitoramento",
+      "system monitoring"
+    ],
+    "description": "Add a Glances system-monitoring widget.",
+    "body": [
+      "- glances:",
+      "    url: ${1:http://ip:61208}",
+      "    version: ${2|4,3|}",
+      "    cpu: true",
+      "    mem: true",
+      "    cputemp: ${3|true,false|}",
+      "    uptime: ${4|true,false|}",
+      "    disk: ${5:/}",
+      "    expanded: ${6|true,false|}",
+      "    label: ${7:System}"
+    ]
+  },
+  "Resources": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "resources",
+      "recursos",
+      "widget resources",
+      "system resources"
+    ],
+    "description": "Add a local system resources widget.",
+    "body": [
+      "- resources:",
+      "    cpu: true",
+      "    memory: true",
+      "    disk: ${1:/}",
+      "    label: ${2:System}"
+    ]
+  },
+  "Search": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "search",
+      "busca",
+      "pesquisa",
+      "widget search",
+      "search widget"
+    ],
+    "description": "Add a search bar widget.",
+    "body": [
+      "- search:",
+      "    provider: ${1|google,duckduckgo,bing,baidu,brave|}",
+      "    focus: ${2|false,true|}",
+      "    showSearchSuggestions: ${3|true,false|}",
+      "    target: ${4|_blank,_self|}"
+    ]
+  },
+  "Datetime": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "datetime",
+      "data hora",
+      "widget datetime",
+      "date time",
+      "date-time"
+    ],
+    "description": "Add a date and time widget.",
+    "body": [
+      "- datetime:",
+      "    locale: ${1:en-US}",
+      "    format:",
+      "      dateStyle: ${2|short,medium,long,full|}",
+      "      timeStyle: ${3|short,medium,long,full|}"
+    ]
+  },
+  "Greeting": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "greeting",
+      "saudação",
+      "widget greeting",
+      "welcome"
+    ],
+    "description": "Add a greeting message widget.",
+    "body": [
+      "- greeting:",
+      "    text_size: ${1|xl,4xl,3xl,2xl,md,sm,xs|}",
+      "    text: ${2:Welcome!}"
+    ]
+  },
+  "Weather": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "weather",
+      "clima",
+      "openweathermap",
+      "widget weather",
+      "weather widget"
+    ],
+    "description": "Add an OpenWeatherMap weather widget.",
+    "body": [
+      "- openweathermap:",
+      "    label: ${1:City}",
+      "    latitude: ${2:0.0}",
+      "    longitude: ${3:0.0}",
+      "    units: metric",
+      "    provider: openweathermap",
+      "    cache: 5",
+      "    format:",
+      "      maximumFractionDigits: 1"
+    ]
+  },
+  "Openmeteo": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "openmeteo",
+      "widget openmeteo"
+    ],
+    "description": "Add an Open-Meteo weather widget without an API key.",
+    "body": [
+      "- openmeteo:",
+      "    label: ${1:City}",
+      "    latitude: ${2:0.0}",
+      "    longitude: ${3:0.0}",
+      "    timezone: ${4:America/New_York}",
+      "    units: metric",
+      "    cache: 5"
+    ]
+  },
+  "Customapi": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "customapi",
+      "api custom",
+      "widget customapi",
+      "custom api"
+    ],
+    "description": "Configure a Custom API service widget.",
+    "body": [
+      "widget:",
+      "  type: customapi",
+      "  url: ${1:http://ip:port/api}",
+      "  refreshInterval: ${2:10000}",
+      "  display: ${3|block,list,dynamic-list|}",
+      "  mappings:",
+      "    - field: ${4:data.field}",
+      "      label: ${5:Label}",
+      "      format: ${6|text,number,float,percent,bytes,bitrate,size,date,relativeDate|}"
+    ]
+  },
+  "Iframe": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "iframe",
+      "widget iframe"
+    ],
+    "description": "Embed an external page using an iframe widget.",
+    "body": [
+      "widget:",
+      "  type: iframe",
+      "  src: ${1:https://example.com}",
+      "  classes: ${2:h-64}",
+      "  allowFullscreen: ${3|true,false|}",
+      "  loadingStrategy: ${4|eager,lazy|}",
+      "  refreshInterval: ${5:60000}"
+    ]
+  },
+  "Layout": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "layout",
+      "layout grupo",
+      "group layout"
+    ],
+    "description": "Configure the layout of a dashboard group.",
+    "body": [
+      "${1:Group Name}:",
+      "  style: ${2|row,column|}",
+      "  columns: ${3:4}",
+      "  icon: ${4:mdi-server-network-#f97316}"
+    ]
+  },
+  "Docker": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "docker",
+      "docker server"
+    ],
+    "description": "Configure a Docker server connection.",
+    "body": [
+      "${1:my-docker}:",
+      "  ${2|socket: /var/run/docker.sock,host: 127.0.0.1|}"
+    ]
+  },
+  "Proxmox": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "proxmox",
+      "proxmox node",
+      "nó proxmox"
+    ],
+    "description": "Configure a Proxmox node connection.",
+    "body": [
+      "${1:pve}:",
+      "  url: ${2:https://proxmox.local:8006}",
+      "  token: ${3:user@pve!token}",
+      "  secret: ${4:secret-key}"
+    ]
+  },
+  "Logo": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "logo",
+      "widget logo"
+    ],
+    "description": "Add a custom logo widget.",
+    "body": [
+      "- logo:",
+      "    icon: ${1:https://example.com/logo.svg}",
+      "    href: ${2:https://example.com}",
+      "    target: ${3|_blank,_self|}"
+    ]
+  },
+  "Stocks": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "stocks",
+      "ações",
+      "bolsa",
+      "widget stocks"
+    ],
+    "description": "Add a stock market watchlist widget.",
+    "body": [
+      "- stocks:",
+      "    provider: finnhub",
+      "    color: true",
+      "    cache: 1",
+      "    watchlist:",
+      "      - ${1:AAPL}",
+      "      - ${2:GOOGL}"
+    ]
+  },
+  "Background": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "background",
+      "fundo",
+      "imagem fundo"
+    ],
+    "description": "Configure a background image.",
+    "body": [
+      "background:",
+      "  image: ${1:https://images.unsplash.com/photo-xxx}",
+      "  blur: ${2|sm,none,md,lg,xl,2xl,3xl|}",
+      "  brightness: ${3:50}",
+      "  opacity: ${4:40}"
+    ]
+  },
+  "Quicklaunch": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "quicklaunch",
+      "quick launch",
+      "pesquisa rápida",
+      "quick search"
+    ],
+    "description": "Configure Quick Launch search.",
+    "body": [
+      "quicklaunch:",
+      "  searchDescriptions: true",
+      "  hideInternetSearch: ${1|true,false|}",
+      "  showSearchSuggestions: true",
+      "  hideVisitURL: ${2|true,false|}",
+      "  provider: ${3|google,duckduckgo,bing,baidu,brave|}"
+    ]
+  },
+  "Providers": {
+    "scope": "yaml-homepage,yaml",
+    "prefix": [
+      "providers",
+      "provedores",
+      "api providers"
+    ],
+    "description": "Configure shared API provider credentials.",
+    "body": [
+      "providers:",
+      "  ${1|openweathermap,weatherapi,finnhub|}: ${2:api_key}"
+    ]
+  }
+}

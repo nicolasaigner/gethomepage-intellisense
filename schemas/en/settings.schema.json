@@ -1,0 +1,558 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/settings.schema.json",
+  "title": "GetHomepage Settings",
+  "description": "Schema for GetHomepage settings.yaml. Documentation: https://gethomepage.dev/configs/settings/",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Page title displayed in the browser tab.",
+      "default": "Homepage"
+    },
+    "description": {
+      "type": "string",
+      "description": "Page description (meta tag)."
+    },
+    "startUrl": {
+      "type": "string",
+      "description": "Start URL for Progressive Web App (PWA) installations.",
+      "default": "/"
+    },
+    "base": {
+      "type": "string",
+      "description": "Absolute base URL for reverse-proxy configurations, e.g. https://homepage.example.com.",
+      "format": "uri"
+    },
+    "background": {
+      "description": "Background image, specified as a URL string or an object with advanced options.",
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "Background image URL."
+        },
+        {
+          "type": "object",
+          "properties": {
+            "image": {
+              "type": "string",
+              "description": "Local path or remote URL of the image."
+            },
+            "blur": {
+              "type": "string",
+              "description": "Background blur level.",
+              "enum": [
+                "none",
+                "sm",
+                "md",
+                "lg",
+                "xl",
+                "2xl",
+                "3xl"
+              ]
+            },
+            "saturate": {
+              "type": "number",
+              "description": "Background saturation (0–100).",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "brightness": {
+              "type": "number",
+              "description": "Background brightness (0–100).",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "opacity": {
+              "type": "number",
+              "description": "Background opacity (0–100).",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "cardBlur": {
+      "type": "string",
+      "description": "Blur applied to service and bookmark cards.",
+      "enum": [
+        "none",
+        "xs",
+        "sm",
+        "md",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl"
+      ]
+    },
+    "favicon": {
+      "type": "string",
+      "description": "URL or path to a custom favicon."
+    },
+    "theme": {
+      "type": "string",
+      "description": "Fixed theme; setting this disables the theme toggle.",
+      "enum": [
+        "dark",
+        "light"
+      ]
+    },
+    "color": {
+      "type": "string",
+      "description": "Interface color palette.",
+      "enum": [
+        "slate",
+        "gray",
+        "zinc",
+        "neutral",
+        "stone",
+        "amber",
+        "yellow",
+        "lime",
+        "green",
+        "emerald",
+        "teal",
+        "cyan",
+        "sky",
+        "blue",
+        "indigo",
+        "violet",
+        "purple",
+        "fuchsia",
+        "pink",
+        "rose",
+        "red",
+        "white"
+      ]
+    },
+    "headerStyle": {
+      "type": "string",
+      "description": "Page header style.",
+      "enum": [
+        "underlined",
+        "boxed",
+        "clean",
+        "boxedWidgets"
+      ]
+    },
+    "language": {
+      "type": "string",
+      "description": "Interface language.",
+      "enum": [
+        "af",
+        "ar",
+        "bg",
+        "ca",
+        "cs",
+        "da",
+        "de",
+        "el",
+        "en",
+        "eo",
+        "es",
+        "eu",
+        "fi",
+        "fr",
+        "he",
+        "hi",
+        "hr",
+        "hu",
+        "id",
+        "it",
+        "ja",
+        "ko",
+        "lv",
+        "ms",
+        "nb-NO",
+        "nl",
+        "no",
+        "pl",
+        "pt",
+        "pt-BR",
+        "ro",
+        "ru",
+        "sk",
+        "sl",
+        "sr",
+        "sv",
+        "te",
+        "th",
+        "tr",
+        "uk",
+        "vi",
+        "yue",
+        "zh-Hans",
+        "zh-Hant"
+      ]
+    },
+    "target": {
+      "type": "string",
+      "description": "Default behavior when opening links.",
+      "enum": [
+        "_self",
+        "_blank",
+        "_top"
+      ]
+    },
+    "fullWidth": {
+      "type": "boolean",
+      "description": "Use the full window width.",
+      "default": false
+    },
+    "maxGroupColumns": {
+      "type": "integer",
+      "description": "Maximum number of service group columns (5–8).",
+      "minimum": 5,
+      "maximum": 8,
+      "default": 4
+    },
+    "maxBookmarkGroupColumns": {
+      "type": "integer",
+      "description": "Maximum number of bookmark-group columns.",
+      "minimum": 5,
+      "maximum": 8,
+      "default": 6
+    },
+    "disableCollapse": {
+      "type": "boolean",
+      "description": "Disable collapsing sections.",
+      "default": false
+    },
+    "groupsInitiallyCollapsed": {
+      "type": "boolean",
+      "description": "Collapse all groups by default.",
+      "default": false
+    },
+    "useEqualHeights": {
+      "type": "boolean",
+      "description": "Use equal-height cards globally.",
+      "default": false
+    },
+    "showStats": {
+      "type": "boolean",
+      "description": "Show Docker container statistics when clicked.",
+      "default": false
+    },
+    "statusStyle": {
+      "type": "string",
+      "description": "Service status indicator style.",
+      "enum": [
+        "dot",
+        "basic"
+      ]
+    },
+    "disableIndexing": {
+      "type": "boolean",
+      "description": "Add a meta tag to prevent search engine indexing.",
+      "default": false
+    },
+    "bookmarksStyle": {
+      "type": "string",
+      "description": "Global bookmark display style.",
+      "enum": [
+        "icons"
+      ]
+    },
+    "instanceName": {
+      "type": "string",
+      "description": "Instance name for multi-instance Homepage deployments."
+    },
+    "blockHighlights": {
+      "type": "object",
+      "description": "Widget metric highlighting configuration by severity level.",
+      "properties": {
+        "levels": {
+          "type": "object",
+          "properties": {
+            "good": {
+              "type": "string",
+              "description": "Tailwind classes for the 'good' level, e.g. bg-emerald-500/40 text-emerald-950."
+            },
+            "warn": {
+              "type": "string",
+              "description": "Tailwind classes for the 'warn' level, e.g. bg-amber-300/30 text-amber-900."
+            },
+            "danger": {
+              "type": "string",
+              "description": "Tailwind classes for the 'danger' level, e.g. bg-rose-700/45 text-rose-200."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "quicklaunch": {
+      "type": "object",
+      "description": "Quick Launch (quick search) settings.",
+      "properties": {
+        "searchDescriptions": {
+          "type": "boolean",
+          "description": "Include service descriptions in searches.",
+          "default": false
+        },
+        "hideInternetSearch": {
+          "type": "boolean",
+          "description": "Hide the internet search option.",
+          "default": false
+        },
+        "showSearchSuggestions": {
+          "type": "boolean",
+          "description": "Show search suggestions.",
+          "default": false
+        },
+        "hideVisitURL": {
+          "type": "boolean",
+          "description": "Hide the visit-URL option.",
+          "default": false
+        },
+        "provider": {
+          "type": "string",
+          "description": "Search provider used by Quick Launch.",
+          "enum": [
+            "google",
+            "duckduckgo",
+            "bing",
+            "baidu",
+            "brave",
+            "custom"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": "Custom URL for a custom search provider."
+        },
+        "mobileButtonPosition": {
+          "type": "string",
+          "enum": [
+            "top-left",
+            "top-right",
+            "bottom-left",
+            "bottom-right"
+          ],
+          "description": "Position of the mobile Quick Launch button."
+        },
+        "suggestionUrl": {
+          "type": "string",
+          "description": "Autocomplete suggestions URL for a custom search provider."
+        },
+        "target": {
+          "type": "string",
+          "enum": [
+            "_blank",
+            "_self",
+            "_top"
+          ],
+          "description": "Where custom Quick Launch results open."
+        }
+      },
+      "additionalProperties": false
+    },
+    "providers": {
+      "type": "object",
+      "description": "Shared API provider credentials. Each key is a provider name.",
+      "properties": {
+        "openweathermap": {
+          "type": "string",
+          "description": "OpenWeatherMap API key."
+        },
+        "weatherapi": {
+          "type": "string",
+          "description": "WeatherAPI API key."
+        },
+        "finnhub": {
+          "type": "string",
+          "description": "Finnhub API key (stock quotes)."
+        },
+        "longhorn": {
+          "type": "object",
+          "description": "Longhorn provider configuration.",
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "Longhorn API URL."
+            },
+            "username": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "pwa": {
+      "type": "object",
+      "description": "Progressive Web App (PWA) settings.",
+      "properties": {
+        "icons": {
+          "type": "array",
+          "description": "PWA icons.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "src": {
+                "type": "string",
+                "description": "Icon path or URL."
+              },
+              "type": {
+                "type": "string",
+                "description": "Icon MIME type.",
+                "default": "image/png"
+              },
+              "sizes": {
+                "type": "string",
+                "description": "Icon dimensions, e.g. 192x192."
+              }
+            },
+            "required": [
+              "src"
+            ]
+          }
+        },
+        "shortcuts": {
+          "type": "array",
+          "description": "PWA shortcuts.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Shortcut name."
+              },
+              "url": {
+                "type": "string",
+                "description": "Shortcut URL; supports #tab syntax."
+              }
+            },
+            "required": [
+              "name",
+              "url"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "layout": {
+      "type": "object",
+      "description": "Layout configuration by group. Keys match group names in services.yaml and bookmarks.yaml.",
+      "additionalProperties": {
+        "$ref": "#/definitions/layoutGroup"
+      }
+    },
+    "cardStyle": {
+      "type": "string",
+      "enum": [
+        "default",
+        "hairline"
+      ],
+      "description": "Card appearance: default shadow or hairline border."
+    },
+    "blockStyle": {
+      "type": "string",
+      "enum": [
+        "default",
+        "refined"
+      ],
+      "description": "Style for metric blocks inside service widgets."
+    },
+    "font": {
+      "type": "string",
+      "enum": [
+        "plex",
+        "plexData"
+      ],
+      "description": "Dashboard font: Manrope (default), Plex Mono everywhere, or Plex Mono for data."
+    },
+    "iconStyle": {
+      "type": "string",
+      "enum": [
+        "gradient",
+        "theme"
+      ],
+      "description": "Icon appearance: gradient (default) or theme-matched."
+    },
+    "hideVersion": {
+      "type": "boolean",
+      "description": "Hide the Homepage version in the footer."
+    },
+    "disableUpdateCheck": {
+      "type": "boolean",
+      "description": "Disable checking for Homepage updates."
+    },
+    "hideErrors": {
+      "type": "boolean",
+      "description": "Hide widget API error messages globally."
+    },
+    "logpath": {
+      "type": "string",
+      "description": "Directory for Homepage log files."
+    }
+  },
+  "definitions": {
+    "layoutGroup": {
+      "type": "object",
+      "description": "Layout configuration for a specific group.",
+      "properties": {
+        "style": {
+          "type": "string",
+          "description": "Group layout style.",
+          "enum": [
+            "column",
+            "row"
+          ]
+        },
+        "columns": {
+          "type": "integer",
+          "description": "Number of columns (used with style: row).",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "header": {
+          "type": "boolean",
+          "description": "Show or hide the group header.",
+          "default": true
+        },
+        "icon": {
+          "type": "string",
+          "description": "Group icon. Supports mdi-NAME-#COLOR, si-NAME, sh-NAME, URL, or filename."
+        },
+        "tab": {
+          "type": "string",
+          "description": "Tab name (for tabbed layouts)."
+        },
+        "initiallyCollapsed": {
+          "type": "boolean",
+          "description": "Start with the group collapsed.",
+          "default": false
+        },
+        "disableCollapse": {
+          "type": "boolean",
+          "description": "Disable collapsing for this group.",
+          "default": false
+        },
+        "useEqualHeights": {
+          "type": "boolean",
+          "description": "Use equal-height cards within this group.",
+          "default": false
+        },
+        "iconsOnly": {
+          "type": "boolean",
+          "description": "Display icons only (for bookmarks).",
+          "default": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

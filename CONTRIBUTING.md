@@ -1,70 +1,50 @@
 # Contributing to GetHomepage IntelliSense
 
-Thank you for your interest in contributing! Here's how you can help.
+Thanks for contributing!
 
-## Getting Started
+## Getting started
 
-1. Fork the repository
-2. Clone your fork: `git clone https://github.com/<your-user>/gethomepage-intellisense.git`
-3. Install dependencies: `npm install`
-4. Make your changes
-5. Test locally: `npm run package && code --install-extension gethomepage-intellisense-*.vsix`
-6. Submit a Pull Request
+1. Fork the repository and clone your fork.
+2. Run `npm install`.
+3. Open the repository in VS Code and press **F5** to launch the Extension Development Host. The debug task compiles TypeScript automatically.
+4. Open a GetHomepage YAML file in the development host and test hover descriptions, validation, and Ctrl+Space suggestions.
+5. Run `npm run check`, `npm run lint`, `npm run format:check`, `npm test`, and `npm run package`.
+6. Submit a pull request to the upstream repository.
 
-## What Can You Contribute?
+## Add a language
 
-### Schema Updates
+One command creates and registers the new language:
 
-When GetHomepage adds new configuration options or widget types, the JSON schemas in `schemas/` need to be updated.
-
-### New Snippets
-
-Add useful snippet templates to `snippets/gethomepage.code-snippets`.
-
-### Bug Reports
-
-Open an [issue](https://github.com/nicolasaigner/gethomepage-intellisense/issues) with:
-
-- VS Code version
-- Extension version
-- Steps to reproduce
-- Expected vs actual behavior
-
-## Project Structure
-
-```
-gethomepage-intellisense/
-├── schemas/                    # JSON Schema files for YAML validation
-│   ├── settings.schema.json
-│   ├── services.schema.json{
-  "files.associations": {
-    "config/*.yaml": "yaml-homepage"
-  }
-}
-│   ├── widgets.schema.json
-│   ├── bookmarks.schema.json
-│   ├── docker.schema.json
-│   ├── kubernetes.schema.json
-│   └── proxmox.schema.json
-├── snippets/                   # Code snippets
-│   └── gethomepage.code-snippets
-├── syntaxes/                   # TextMate grammar
-│   └── yaml-homepage.tmLanguage.json
-├── language-configuration.json # Language configuration for yaml-homepage
-├── package.json                # Extension manifest
-├── CHANGELOG.md
-└── README.md
+```sh
+npm run locale:add -- --locale fr-FR
 ```
 
-## Commit Convention
+To start from Portuguese instead of English:
 
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
+```sh
+npm run locale:add -- --locale es-ES --from pt-BR
+```
 
-- `feat:` — New feature
-- `fix:` — Bug fix
-- `docs:` — Documentation changes
-- `chore:` — Maintenance tasks
+Then translate the new files in `schemas/<locale>/` and `snippets/<locale>.code-snippets`. **Only translate human-facing text**; never change YAML property names, enums, or validation rules. See [docs/localization.md](docs/localization.md) and [docs/testing.md](docs/testing.md) for details. English schema descriptions have been translated directly without a translation API; English snippets have also been translated; both locales were smoke-tested in VS Code; individual widget strings will be refined through community contributions.
+
+### Why not include every language already?
+
+Our initial bulk translation attempts encountered HTTP 429 rate limits. Instead of relying on one maintainer to generate every language, we're inviting contributors to add and review individual languages. The scaffolding script runs offline, so you can translate manually or use your own tools without depending on a shared translation API quota. See [docs/localization.md](docs/localization.md).
+
+## Other contributions
+
+- **Schema updates:** update configuration schemas when GetHomepage adds new options; keep locale validation behavior equivalent.
+- **Snippets:** add useful templates to localized snippet collections.
+- **Bugs:** include VS Code version, extension version, reproduction steps, and expected versus actual behavior.
+
+## Developer documentation
+
+Read [docs/README.md](docs/README.md) for architecture, completed work, roadmap, and PR readiness. Please update the relevant document with significant implementation changes.
+
+## Commit convention
+
+Use Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`).
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
+Contributions are licensed under the MIT License.

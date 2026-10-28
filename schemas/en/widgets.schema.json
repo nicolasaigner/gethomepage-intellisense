@@ -1,0 +1,811 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/widgets.schema.json",
+  "title": "GetHomepage Info Widgets",
+  "description": "Schema for GetHomepage widgets.yaml (global information widgets). Documentation: https://gethomepage.dev/configs/info-widgets/",
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "$ref": "#/definitions/greetingWidget"
+      },
+      {
+        "$ref": "#/definitions/datetimeWidget"
+      },
+      {
+        "$ref": "#/definitions/searchWidget"
+      },
+      {
+        "$ref": "#/definitions/resourcesWidget"
+      },
+      {
+        "$ref": "#/definitions/openweathermapWidget"
+      },
+      {
+        "$ref": "#/definitions/openmeteoWidget"
+      },
+      {
+        "$ref": "#/definitions/glancesWidget"
+      },
+      {
+        "$ref": "#/definitions/logoWidget"
+      },
+      {
+        "$ref": "#/definitions/stocksWidget"
+      },
+      {
+        "$ref": "#/definitions/kubernetesWidget"
+      },
+      {
+        "$ref": "#/definitions/longhornWidget"
+      },
+      {
+        "$ref": "#/definitions/unifiConsoleWidget"
+      }
+    ]
+  },
+  "definitions": {
+    "textSize": {
+      "type": "string",
+      "description": "Text size.",
+      "enum": [
+        "4xl",
+        "3xl",
+        "2xl",
+        "xl",
+        "md",
+        "sm",
+        "xs"
+      ]
+    },
+    "greetingWidget": {
+      "type": "object",
+      "required": [
+        "greeting"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "greeting": {
+          "type": "object",
+          "description": "Greeting widget. Displays a welcome message.",
+          "properties": {
+            "text_size": {
+              "$ref": "#/definitions/textSize"
+            },
+            "text": {
+              "type": "string",
+              "description": "Greeting text to display."
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "datetimeWidget": {
+      "type": "object",
+      "required": [
+        "datetime"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "datetime": {
+          "type": "object",
+          "description": "Date/time widget. Displays the current date and time.",
+          "properties": {
+            "text_size": {
+              "$ref": "#/definitions/textSize"
+            },
+            "locale": {
+              "type": "string",
+              "description": "Locale used for formatting (overrides settings.yaml), e.g. pt-BR."
+            },
+            "format": {
+              "type": "object",
+              "description": "Intl.DateTimeFormat options.",
+              "properties": {
+                "dateStyle": {
+                  "type": "string",
+                  "description": "Date display style.",
+                  "enum": [
+                    "full",
+                    "long",
+                    "medium",
+                    "short"
+                  ]
+                },
+                "timeStyle": {
+                  "type": "string",
+                  "description": "Time display style.",
+                  "enum": [
+                    "full",
+                    "long",
+                    "medium",
+                    "short"
+                  ]
+                },
+                "hour12": {
+                  "type": "boolean",
+                  "description": "Use 12-hour time format."
+                },
+                "hour": {
+                  "type": "string",
+                  "enum": [
+                    "numeric",
+                    "2-digit"
+                  ]
+                },
+                "minute": {
+                  "type": "string",
+                  "enum": [
+                    "numeric",
+                    "2-digit"
+                  ]
+                },
+                "second": {
+                  "type": "string",
+                  "enum": [
+                    "numeric",
+                    "2-digit"
+                  ]
+                },
+                "weekday": {
+                  "type": "string",
+                  "enum": [
+                    "long",
+                    "short",
+                    "narrow"
+                  ]
+                },
+                "year": {
+                  "type": "string",
+                  "enum": [
+                    "numeric",
+                    "2-digit"
+                  ]
+                },
+                "month": {
+                  "type": "string",
+                  "enum": [
+                    "numeric",
+                    "2-digit",
+                    "long",
+                    "short",
+                    "narrow"
+                  ]
+                },
+                "day": {
+                  "type": "string",
+                  "enum": [
+                    "numeric",
+                    "2-digit"
+                  ]
+                },
+                "timeZoneName": {
+                  "type": "string",
+                  "enum": [
+                    "long",
+                    "short",
+                    "shortOffset",
+                    "longOffset",
+                    "shortGeneric",
+                    "longGeneric"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "searchWidget": {
+      "type": "object",
+      "required": [
+        "search"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "search": {
+          "type": "object",
+          "description": "Search widget. Adds a search bar to the header.",
+          "properties": {
+            "provider": {
+              "description": "Search provider; accepts a string or an array of providers.",
+              "oneOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "google",
+                    "duckduckgo",
+                    "bing",
+                    "baidu",
+                    "brave",
+                    "custom"
+                  ]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "google",
+                      "duckduckgo",
+                      "bing",
+                      "baidu",
+                      "brave",
+                      "custom"
+                    ]
+                  }
+                }
+              ]
+            },
+            "focus": {
+              "type": "boolean",
+              "description": "Automatically focus the search field on page load.",
+              "default": true
+            },
+            "showSearchSuggestions": {
+              "type": "boolean",
+              "description": "Show search suggestions.",
+              "default": false
+            },
+            "target": {
+              "type": "string",
+              "description": "Where to open search results.",
+              "enum": [
+                "_self",
+                "_blank",
+                "_top"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "description": "Custom search provider URL; use {searchTerm} as the placeholder."
+            },
+            "suggestionUrl": {
+              "type": "string",
+              "description": "URL for a custom suggestions endpoint."
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "resourcesWidget": {
+      "type": "object",
+      "required": [
+        "resources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "resources": {
+          "type": "object",
+          "description": "System resource widget (CPU, memory, disk).",
+          "properties": {
+            "label": {
+              "type": "string",
+              "description": "System display label."
+            },
+            "cpu": {
+              "type": "boolean",
+              "description": "Show CPU usage."
+            },
+            "memory": {
+              "type": "boolean",
+              "description": "Show memory usage."
+            },
+            "disk": {
+              "description": "Disk mount point or array of mount points.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "cputemp": {
+              "type": "boolean",
+              "description": "Show CPU temperature."
+            },
+            "tempmin": {
+              "type": "number",
+              "description": "Minimum temperature for the scale."
+            },
+            "tempmax": {
+              "type": "number",
+              "description": "Maximum temperature for the scale."
+            },
+            "uptime": {
+              "type": "boolean",
+              "description": "Show uptime."
+            },
+            "units": {
+              "type": "string",
+              "description": "Temperature unit.",
+              "enum": [
+                "metric",
+                "imperial"
+              ]
+            },
+            "diskUnits": {
+              "type": "string",
+              "description": "Disk size unit.",
+              "enum": [
+                "bytes",
+                "bbytes"
+              ]
+            },
+            "refresh": {
+              "type": "integer",
+              "description": "Refresh interval in milliseconds.",
+              "default": 3000
+            },
+            "network": {
+              "description": "Show network usage; true for the default interface or specify an interface name.",
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "expanded": {
+              "type": "boolean",
+              "description": "Show expanded view.",
+              "default": false
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "openweathermapWidget": {
+      "type": "object",
+      "required": [
+        "openweathermap"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "openweathermap": {
+          "type": "object",
+          "description": "Weather widget using the OpenWeatherMap API.",
+          "properties": {
+            "label": {
+              "type": "string",
+              "description": "Displayed location name."
+            },
+            "latitude": {
+              "type": "number",
+              "description": "Location latitude.",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "longitude": {
+              "type": "number",
+              "description": "Location longitude.",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "units": {
+              "type": "string",
+              "description": "Unit system.",
+              "enum": [
+                "metric",
+                "imperial"
+              ]
+            },
+            "provider": {
+              "type": "string",
+              "description": "Provider name (when using providers in settings.yaml).",
+              "const": "openweathermap"
+            },
+            "apiKey": {
+              "type": "string",
+              "description": "OpenWeatherMap API key (or use a configured provider)."
+            },
+            "cache": {
+              "type": "integer",
+              "description": "Cache duration in minutes.",
+              "default": 5
+            },
+            "format": {
+              "type": "object",
+              "description": "Intl.NumberFormat options.",
+              "properties": {
+                "maximumFractionDigits": {
+                  "type": "integer",
+                  "description": "Maximum number of decimal places."
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "openmeteoWidget": {
+      "type": "object",
+      "required": [
+        "openmeteo"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "openmeteo": {
+          "type": "object",
+          "description": "Weather widget using Open-Meteo (free; no API key required).",
+          "properties": {
+            "label": {
+              "type": "string",
+              "description": "Displayed location name."
+            },
+            "latitude": {
+              "type": "number",
+              "description": "Latitude.",
+              "minimum": -90,
+              "maximum": 90
+            },
+            "longitude": {
+              "type": "number",
+              "description": "Longitude.",
+              "minimum": -180,
+              "maximum": 180
+            },
+            "timezone": {
+              "type": "string",
+              "description": "IANA timezone, e.g. America/Sao_Paulo."
+            },
+            "units": {
+              "type": "string",
+              "description": "Unit system.",
+              "enum": [
+                "metric",
+                "imperial"
+              ]
+            },
+            "cache": {
+              "type": "integer",
+              "description": "Cache duration in minutes.",
+              "default": 5
+            },
+            "format": {
+              "type": "object",
+              "description": "Intl.NumberFormat options.",
+              "properties": {
+                "maximumFractionDigits": {
+                  "type": "integer",
+                  "description": "Maximum number of decimal places."
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "glancesWidget": {
+      "type": "object",
+      "required": [
+        "glances"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "glances": {
+          "type": "object",
+          "description": "Glances widget for remote system monitoring.",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "Glances server URL."
+            },
+            "username": {
+              "type": "string",
+              "description": "Authentication username."
+            },
+            "password": {
+              "type": "string",
+              "description": "Authentication password."
+            },
+            "version": {
+              "type": "integer",
+              "description": "Glances version (3 or 4); required for v4 and later.",
+              "enum": [
+                3,
+                4
+              ],
+              "default": 3
+            },
+            "cpu": {
+              "type": "boolean",
+              "description": "Show CPU metrics.",
+              "default": true
+            },
+            "mem": {
+              "type": "boolean",
+              "description": "Show memory metrics.",
+              "default": true
+            },
+            "cputemp": {
+              "type": "boolean",
+              "description": "Show CPU temperature.",
+              "default": false
+            },
+            "uptime": {
+              "type": "boolean",
+              "description": "Show uptime.",
+              "default": false
+            },
+            "disk": {
+              "description": "Disk mount point or array of mount points.",
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "diskUnits": {
+              "type": "string",
+              "description": "Disk size unit.",
+              "enum": [
+                "bytes",
+                "bbytes"
+              ],
+              "default": "bytes"
+            },
+            "expanded": {
+              "type": "boolean",
+              "description": "Show expanded view.",
+              "default": false
+            },
+            "label": {
+              "type": "string",
+              "description": "System display label."
+            },
+            "unit": {
+              "type": "string",
+              "description": "Temperature unit.",
+              "enum": [
+                "metric",
+                "imperial"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "logoWidget": {
+      "type": "object",
+      "required": [
+        "logo"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "logo": {
+          "type": "object",
+          "description": "Logo widget. Displays a custom logo.",
+          "properties": {
+            "icon": {
+              "type": "string",
+              "description": "Logo/icon URL or local path."
+            },
+            "href": {
+              "type": "string",
+              "description": "Link opened when clicking the logo."
+            },
+            "target": {
+              "type": "string",
+              "description": "Where to open the link.",
+              "enum": [
+                "_self",
+                "_blank",
+                "_top"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "stocksWidget": {
+      "type": "object",
+      "required": [
+        "stocks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "stocks": {
+          "type": "object",
+          "description": "Stock market widget using Finnhub.",
+          "properties": {
+            "provider": {
+              "type": "string",
+              "description": "Data provider.",
+              "const": "finnhub"
+            },
+            "color": {
+              "type": "boolean",
+              "description": "Show colors (green/red).",
+              "default": true
+            },
+            "cache": {
+              "type": "integer",
+              "description": "Cache duration in minutes.",
+              "default": 1
+            },
+            "watchlist": {
+              "type": "array",
+              "description": "List of stock ticker symbols (maximum 8).",
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 8
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "kubernetesWidget": {
+      "type": "object",
+      "required": [
+        "kubernetes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kubernetes": {
+          "type": "object",
+          "description": "Kubernetes cluster metrics widget.",
+          "properties": {
+            "cluster": {
+              "type": "object",
+              "properties": {
+                "show": {
+                  "type": "boolean",
+                  "description": "Show cluster metrics."
+                },
+                "cpu": {
+                  "type": "boolean",
+                  "description": "Show CPU metrics."
+                },
+                "memory": {
+                  "type": "boolean",
+                  "description": "Show memory metrics."
+                },
+                "showLabel": {
+                  "type": "boolean",
+                  "description": "Show label."
+                },
+                "label": {
+                  "type": "string",
+                  "description": "Cluster label."
+                }
+              },
+              "additionalProperties": false
+            },
+            "nodes": {
+              "type": "object",
+              "properties": {
+                "show": {
+                  "type": "boolean",
+                  "description": "Show node metrics."
+                },
+                "cpu": {
+                  "type": "boolean",
+                  "description": "Show CPU metrics."
+                },
+                "memory": {
+                  "type": "boolean",
+                  "description": "Show memory metrics."
+                },
+                "showLabel": {
+                  "type": "boolean",
+                  "description": "Show label."
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "longhornWidget": {
+      "type": "object",
+      "required": [
+        "longhorn"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "longhorn": {
+          "type": "object",
+          "description": "Longhorn widget (Kubernetes distributed storage).",
+          "properties": {
+            "expanded": {
+              "type": "boolean",
+              "description": "Expanded view.",
+              "default": true
+            },
+            "total": {
+              "type": "boolean",
+              "description": "Show aggregate total."
+            },
+            "labels": {
+              "type": "boolean",
+              "description": "Show node labels."
+            },
+            "nodes": {
+              "type": "boolean",
+              "description": "Show nodes."
+            },
+            "include": {
+              "type": "array",
+              "description": "Filter to specific nodes.",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "unifiConsoleWidget": {
+      "type": "object",
+      "required": [
+        "unifi_console"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "unifi_console": {
+          "type": "object",
+          "description": "UniFi Controller information widget.",
+          "required": [
+            "url"
+          ],
+          "properties": {
+            "url": {
+              "type": "string",
+              "description": "UniFi Controller URL."
+            },
+            "username": {
+              "type": "string",
+              "description": "Username."
+            },
+            "password": {
+              "type": "string",
+              "description": "Password."
+            },
+            "key": {
+              "type": "string",
+              "description": "API key (alternative to username/password)."
+            },
+            "site": {
+              "type": "string",
+              "description": "UniFi site name."
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    }
+  }
+}

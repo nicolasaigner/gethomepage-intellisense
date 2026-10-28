@@ -1,46 +1,67 @@
 {
   "name": "gethomepage-intellisense",
   "displayName": "GetHomepage IntelliSense",
-  "description": "YAML IntelliSense, autocompletion, validation and snippets for GetHomepage configuration files (settings, services, widgets, bookmarks, docker, kubernetes, proxmox).",
   "version": "0.1.4",
-  "publisher": "gethomepage",
-  "icon": "icon.png",
-  "license": "MIT",
+  "description": "YAML IntelliSense, autocompletion, validation and snippets for GetHomepage configuration files (settings, services, widgets, bookmarks, docker, kubernetes, proxmox).",
+  "categories": [
+    "Linters",
+    "Other",
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "dashboard",
+    "docker",
+    "gethomepage",
+    "homelab",
+    "homepage",
+    "kubernetes",
+    "proxmox",
+    "self-hosted",
+    "yaml"
+  ],
   "homepage": "https://github.com/nicolasaigner/gethomepage-intellisense#readme",
   "bugs": {
     "url": "https://github.com/nicolasaigner/gethomepage-intellisense/issues"
   },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Scott Page",
+      "url": "https://github.com/scottpage"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/nicolasaigner/gethomepage-intellisense"
   },
-  "engines": {
-    "vscode": "^1.80.0"
+  "publisher": "gethomepage",
+  "main": "./out/extension.js",
+  "scripts": {
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "test": "tsx --test tests/*.test.ts",
+    "compile": "tsc -p .",
+    "check": "tsc --noEmit -p .",
+    "prepackage": "npm run compile",
+    "prepublish": "npm run compile",
+    "lint": "oxlint src tests",
+    "format": "oxfmt src tests package.json tsconfig.json",
+    "format:check": "oxfmt --check src tests package.json tsconfig.json",
+    "locale:add": "node scripts/add-locale.cjs"
   },
-  "categories": [
-    "Programming Languages",
-    "Linters",
-    "Snippets",
-    "Other"
-  ],
-  "keywords": [
-    "homepage",
-    "gethomepage",
-    "dashboard",
-    "yaml",
-    "homelab",
-    "docker",
-    "kubernetes",
-    "proxmox",
-    "self-hosted"
-  ],
-  "galleryBanner": {
-    "color": "#1a1a2e",
-    "theme": "dark"
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^4.0.0",
+    "oxfmt": "^0.75.0",
+    "oxlint": "^1.90.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   },
-  "extensionDependencies": [
-    "redhat.vscode-yaml"
-  ],
+  "overrides": {
+    "@azure/msal-node": "^7.1.2"
+  },
   "contributes": {
     "languages": [
       {
@@ -60,42 +81,6 @@
         "path": "./syntaxes/yaml-homepage.tmLanguage.json"
       }
     ],
-    "yamlValidation": [
-      {
-        "fileMatch": "**/settings.yaml",
-        "url": "./schemas/settings.schema.json"
-      },
-      {
-        "fileMatch": "**/services.yaml",
-        "url": "./schemas/services.schema.json"
-      },
-      {
-        "fileMatch": "**/widgets.yaml",
-        "url": "./schemas/widgets.schema.json"
-      },
-      {
-        "fileMatch": "**/bookmarks.yaml",
-        "url": "./schemas/bookmarks.schema.json"
-      },
-      {
-        "fileMatch": "**/docker.yaml",
-        "url": "./schemas/docker.schema.json"
-      },
-      {
-        "fileMatch": "**/kubernetes.yaml",
-        "url": "./schemas/kubernetes.schema.json"
-      },
-      {
-        "fileMatch": "**/proxmox.yaml",
-        "url": "./schemas/proxmox.schema.json"
-      }
-    ],
-    "snippets": [
-      {
-        "language": "yaml-homepage",
-        "path": "./snippets/gethomepage.code-snippets"
-      }
-    ],
     "configurationDefaults": {
       "[yaml-homepage]": {
         "editor.quickSuggestions": {
@@ -107,13 +92,18 @@
       }
     }
   },
-  "scripts": {
-    "package": "vsce package",
-    "publish": "vsce publish"
+  "activationEvents": [
+    "onLanguage:yaml"
+  ],
+  "extensionDependencies": [
+    "redhat.vscode-yaml"
+  ],
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1a1a2e",
+    "theme": "dark"
   },
-  "devDependencies": {
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2",
-    "@vscode/vsce": "^3.0.0"
+  "engines": {
+    "vscode": "^1.80.0"
   }
 }

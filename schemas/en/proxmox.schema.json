@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/proxmox.schema.json",
+  "title": "GetHomepage Proxmox Configuration",
+  "description": "Schema for GetHomepage proxmox.yaml. Documentation: https://gethomepage.dev/configs/proxmox/",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/definitions/proxmoxNode"
+  },
+  "definitions": {
+    "proxmoxNode": {
+      "type": "object",
+      "description": "Proxmox node configuration. The key is the name referenced by the services’ proxmoxNode setting.",
+      "required": [
+        "url",
+        "token",
+        "secret"
+      ],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Proxmox API URL, for example https://proxmox.local:8006."
+        },
+        "token": {
+          "type": "string",
+          "description": "API token in the format user@realm!TokenID, for example homepage@pve!homepage."
+        },
+        "secret": {
+          "type": "string",
+          "description": "API token secret."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

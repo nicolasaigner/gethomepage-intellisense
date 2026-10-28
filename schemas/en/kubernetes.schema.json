@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/kubernetes.schema.json",
+  "title": "GetHomepage Kubernetes Configuration",
+  "description": "Schema for GetHomepage kubernetes.yaml. Documentation: https://gethomepage.dev/configs/kubernetes/",
+  "type": "object",
+  "properties": {
+    "mode": {
+      "type": "string",
+      "description": "Kubernetes operating mode.",
+      "enum": [
+        "disabled",
+        "default",
+        "cluster"
+      ],
+      "default": "default"
+    },
+    "ingress": {
+      "type": "boolean",
+      "description": "Enable Ingress discovery.",
+      "default": true
+    },
+    "traefik": {
+      "type": "boolean",
+      "description": "Enable Traefik IngressRoute discovery.",
+      "default": false
+    },
+    "gateway": {
+      "type": "boolean",
+      "description": "Enable Gateway API HTTPRoute discovery.",
+      "default": false
+    }
+  },
+  "additionalProperties": false
+}

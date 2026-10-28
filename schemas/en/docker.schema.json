@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/docker.schema.json",
+  "title": "GetHomepage Docker Configuration",
+  "description": "Schema for GetHomepage docker.yaml. Documentation: https://gethomepage.dev/configs/docker/",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/definitions/dockerServer"
+  },
+  "definitions": {
+    "dockerServer": {
+      "type": "object",
+      "description": "Docker server configuration. The key is the name referenced by the services’ server setting.",
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "IP address or hostname of the Docker host."
+        },
+        "port": {
+          "type": "integer",
+          "description": "Docker API port.",
+          "default": 2375
+        },
+        "socket": {
+          "type": "string",
+          "description": "Path to docker.sock, for example /var/run/docker.sock."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Connection protocol.",
+          "enum": [
+            "http",
+            "https"
+          ],
+          "default": "http"
+        },
+        "swarm": {
+          "type": "boolean",
+          "description": "Enable Docker Swarm mode.",
+          "default": false
+        },
+        "tls": {
+          "type": "object",
+          "description": "TLS configuration for a secure connection.",
+          "properties": {
+            "keyFile": {
+              "type": "string",
+              "description": "Path to key.pem (relative to the config/ directory)."
+            },
+            "certFile": {
+              "type": "string",
+              "description": "Path to cert.pem (relative to the config/ directory)."
+            },
+            "caFile": {
+              "type": "string",
+              "description": "Path to ca.pem (relative to the config/ directory)."
+            }
+          },
+          "additionalProperties": false
+        },
+        "headers": {
+          "type": "object",
+          "description": "Custom HTTP headers.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "instanceName": {
+          "type": "string",
+          "description": "Instance name (for multi-instance configurations)."
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "socket"
+          ]
+        },
+        {
+          "required": [
+            "host"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

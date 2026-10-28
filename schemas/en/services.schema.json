@@ -1,0 +1,746 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gethomepage.dev/schemas/services.schema.json",
+  "title": "GetHomepage Services",
+  "description": "Schema for GetHomepage services.yaml. Documentation: https://gethomepage.dev/configs/services/",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/serviceGroup"
+  },
+  "definitions": {
+    "serviceGroup": {
+      "type": "object",
+      "description": "Service group. The key is the group name displayed on the dashboard.",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/serviceEntry"
+            },
+            {
+              "$ref": "#/definitions/nestedServiceGroup"
+            }
+          ]
+        }
+      }
+    },
+    "nestedServiceGroup": {
+      "type": "object",
+      "description": "Nested service group.",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/serviceEntry"
+        }
+      }
+    },
+    "serviceEntry": {
+      "type": "object",
+      "description": "Service entry. The key is the name displayed on the card.",
+      "minProperties": 1,
+      "maxProperties": 1,
+      "additionalProperties": {
+        "$ref": "#/definitions/serviceProperties"
+      }
+    },
+    "serviceProperties": {
+      "type": "object",
+      "description": "Properties of an individual service.",
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "Service URL (opened when clicking the card)."
+        },
+        "icon": {
+          "type": "string",
+          "description": "Service icon. Accepts a URL, mdi-NAME, si-NAME, sh-NAME, or a local filename in /icons/."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description displayed beneath the service name."
+        },
+        "id": {
+          "type": "string",
+          "description": "Custom ID for targeting with custom CSS."
+        },
+        "target": {
+          "type": "string",
+          "description": "Link-opening behavior.",
+          "enum": [
+            "_self",
+            "_blank",
+            "_top"
+          ]
+        },
+        "siteMonitor": {
+          "type": "string",
+          "description": "URL to monitor service availability (replaces deprecated 'ping')."
+        },
+        "statusStyle": {
+          "type": "string",
+          "description": "Status indicator style.",
+          "enum": [
+            "dot",
+            "basic"
+          ]
+        },
+        "server": {
+          "type": "string",
+          "description": "Docker server name (must match a key in docker.yaml)."
+        },
+        "container": {
+          "type": "string",
+          "description": "Docker container name."
+        },
+        "showStats": {
+          "type": "boolean",
+          "description": "Show container statistics when clicked."
+        },
+        "namespace": {
+          "type": "string",
+          "description": "Kubernetes namespace."
+        },
+        "app": {
+          "type": "string",
+          "description": "Kubernetes application label selector."
+        },
+        "podSelector": {
+          "type": "string",
+          "description": "Custom Kubernetes pod selector."
+        },
+        "proxmoxNode": {
+          "type": "string",
+          "description": "Proxmox node name (must match a key in proxmox.yaml)."
+        },
+        "proxmoxVMID": {
+          "type": "integer",
+          "description": "Proxmox VM or LXC ID."
+        },
+        "proxmoxType": {
+          "type": "string",
+          "description": "Proxmox virtualization type.",
+          "enum": [
+            "qemu",
+            "lxc"
+          ],
+          "default": "qemu"
+        },
+        "ping": {
+          "type": "string",
+          "description": "⚠️ DEPRECATED: Use 'siteMonitor' instead. Host to check for availability.",
+          "deprecated": true
+        },
+        "widget": {
+          "$ref": "#/definitions/widget",
+          "description": "Single widget displaying service data."
+        },
+        "widgets": {
+          "type": "array",
+          "description": "Multiple widgets for the service.",
+          "items": {
+            "$ref": "#/definitions/widget"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "widget": {
+      "type": "object",
+      "description": "Service widget configuration.",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Widget type. See https://gethomepage.dev/widgets/ for the full list.",
+          "enum": [
+            "adguard",
+            "apcups",
+            "arcane",
+            "argocd",
+            "atsumeru",
+            "audiobookshelf",
+            "authentik",
+            "autobrr",
+            "azuredevops",
+            "backrest",
+            "bazarr",
+            "beszel",
+            "booklore",
+            "bookorbit",
+            "caddy",
+            "calendar",
+            "calibreweb",
+            "changedetectionio",
+            "channelsdvrserver",
+            "checkmk",
+            "cloudflared",
+            "coinmarketcap",
+            "crowdsec",
+            "customapi",
+            "deluge",
+            "develancacheui",
+            "diskstation",
+            "dispatcharr",
+            "dockhand",
+            "downloadstation",
+            "emby",
+            "esphome",
+            "evcc",
+            "filebrowser",
+            "fileflows",
+            "firefly",
+            "flood",
+            "freshrss",
+            "frigate",
+            "fritzbox",
+            "gamedig",
+            "gatus",
+            "ghostfolio",
+            "gitea",
+            "gitlab",
+            "glances",
+            "gluetun",
+            "gotify",
+            "grafana",
+            "hdhomerun",
+            "headscale",
+            "healthchecks",
+            "homeassistant",
+            "homebox",
+            "homebridge",
+            "iframe",
+            "immich",
+            "jackett",
+            "jdownloader",
+            "jellyfin",
+            "jellystat",
+            "karakeep",
+            "kavita",
+            "komga",
+            "komodo",
+            "kopia",
+            "kubernetes",
+            "lidarr",
+            "linkwarden",
+            "lubelogger",
+            "mailcow",
+            "mastodon",
+            "mealie",
+            "medusa",
+            "mikrotik",
+            "minecraft",
+            "miniflux",
+            "mjpeg",
+            "moonraker",
+            "mylar",
+            "myspeed",
+            "navidrome",
+            "netalertx",
+            "netdata",
+            "nextcloud",
+            "nextdns",
+            "npm",
+            "nzbget",
+            "octoprint",
+            "omada",
+            "ombi",
+            "opendtu",
+            "openmediavault",
+            "openwrt",
+            "opnsense",
+            "overseerr",
+            "pangolin",
+            "paperlessngx",
+            "peanut",
+            "pfsense",
+            "photoprism",
+            "pihole",
+            "plantit",
+            "plex",
+            "portainer",
+            "prometheus",
+            "prometheusmetric",
+            "prowlarr",
+            "proxmox",
+            "proxmoxbackupserver",
+            "pterodactyl",
+            "pyload",
+            "qbittorrent",
+            "qnap",
+            "qui",
+            "radarr",
+            "readarr",
+            "romm",
+            "rutorrent",
+            "sabnzbd",
+            "scrutiny",
+            "seerr",
+            "slskd",
+            "sonarr",
+            "speedtest",
+            "spoolman",
+            "stash",
+            "stocks",
+            "strelaysrv",
+            "suwayomi",
+            "swagdashboard",
+            "tailscale",
+            "tandoor",
+            "tautulli",
+            "tdarr",
+            "technitium",
+            "tracearr",
+            "traefik",
+            "transmission",
+            "trilium",
+            "truenas",
+            "tubearchivist",
+            "unifi",
+            "unmanic",
+            "unraid",
+            "uptimekuma",
+            "uptimerobot",
+            "urbackup",
+            "vikunja",
+            "wallos",
+            "watchtower",
+            "wgeasy",
+            "whatsupdocker",
+            "xteve",
+            "yourspotify",
+            "zabbix"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "description": "Service API URL."
+        },
+        "key": {
+          "type": "string",
+          "description": "API key or authentication token."
+        },
+        "password": {
+          "type": "string",
+          "description": "Authentication password."
+        },
+        "username": {
+          "type": "string",
+          "description": "Authentication username."
+        },
+        "headers": {
+          "type": "object",
+          "description": "Custom HTTP headers for API requests.",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "fields": {
+          "type": "array",
+          "description": "Fields to display in the widget (varies by widget type).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "env": {
+          "type": [
+            "integer",
+            "string"
+          ],
+          "description": "Environment ID (Portainer)."
+        },
+        "node": {
+          "type": "string",
+          "description": "Specific node name (Proxmox)."
+        },
+        "slug": {
+          "type": "string",
+          "description": "Status page slug (Uptime Kuma)."
+        },
+        "site": {
+          "type": "string",
+          "description": "Site name (UniFi)."
+        },
+        "version": {
+          "type": "integer",
+          "description": "API version (Pi-hole: 5 or 6; Glances: 3 or 4; Grafana: 1 or 2)."
+        },
+        "enableQueue": {
+          "type": "boolean",
+          "description": "Show detailed queue information (Sonarr/Radarr)."
+        },
+        "enableBlocks": {
+          "type": "boolean",
+          "description": "Enable information blocks (Emby).",
+          "default": false
+        },
+        "enableNowPlaying": {
+          "type": "boolean",
+          "description": "Show currently playing media (Emby/Jellyfin).",
+          "default": true
+        },
+        "enableUser": {
+          "type": "boolean",
+          "description": "Show user information (Emby).",
+          "default": false
+        },
+        "enableMediaControl": {
+          "type": "boolean",
+          "description": "Enable media controls (Emby).",
+          "default": true
+        },
+        "showEpisodeNumber": {
+          "type": "boolean",
+          "description": "Show episode numbers (Emby).",
+          "default": false
+        },
+        "expandOneStreamToTwoRows": {
+          "type": "boolean",
+          "description": "Expand a single stream to two rows (Emby).",
+          "default": true
+        },
+        "enableRecentEvents": {
+          "type": "boolean",
+          "description": "Show recent events (Frigate).",
+          "default": false
+        },
+        "alerts": {
+          "type": "string",
+          "description": "Alert source (Grafana).",
+          "enum": [
+            "grafana",
+            "alertmanager"
+          ]
+        },
+        "environment": {
+          "type": "string",
+          "description": "Environment name or ID (Dockhand)."
+        },
+        "custom": {
+          "type": "array",
+          "description": "Custom states/templates (Home Assistant).",
+          "items": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "type": "string",
+                "description": "Home Assistant entity ID."
+              },
+              "template": {
+                "type": "string",
+                "description": "Jinja2 template."
+              },
+              "label": {
+                "type": "string",
+                "description": "Display label."
+              },
+              "value": {
+                "type": "string",
+                "description": "Value template."
+              }
+            }
+          }
+        },
+        "refreshInterval": {
+          "type": "integer",
+          "description": "Refresh interval in milliseconds (Custom API, iFrame).",
+          "default": 10000
+        },
+        "method": {
+          "type": "string",
+          "description": "HTTP method (Custom API).",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "PATCH",
+            "DELETE"
+          ],
+          "default": "GET"
+        },
+        "requestBody": {
+          "description": "Request body (Custom API).",
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "object"
+            }
+          ]
+        },
+        "display": {
+          "type": "string",
+          "description": "Display mode (Custom API).",
+          "enum": [
+            "block",
+            "list",
+            "dynamic-list"
+          ]
+        },
+        "mappings": {
+          "type": "array",
+          "description": "Field mappings (Custom API).",
+          "items": {
+            "$ref": "#/definitions/customApiMapping"
+          }
+        },
+        "src": {
+          "type": "string",
+          "description": "URL to embed (iFrame)."
+        },
+        "classes": {
+          "type": "string",
+          "description": "Tailwind height classes (iFrame)."
+        },
+        "referrerPolicy": {
+          "type": "string",
+          "description": "Referrer policy (iFrame)."
+        },
+        "allowPolicy": {
+          "type": "string",
+          "description": "Permissions policy (iFrame)."
+        },
+        "allowFullscreen": {
+          "type": "boolean",
+          "description": "Allow fullscreen (iFrame).",
+          "default": true
+        },
+        "loadingStrategy": {
+          "type": "string",
+          "description": "Loading strategy (iFrame).",
+          "enum": [
+            "eager",
+            "lazy"
+          ]
+        },
+        "allowScrolling": {
+          "type": "string",
+          "description": "Allow scrolling (iFrame).",
+          "enum": [
+            "yes",
+            "no"
+          ]
+        },
+        "highlight": {
+          "$ref": "#/definitions/highlight",
+          "description": "Highlighting rules for widget metrics."
+        },
+        "volume": {
+          "type": "string",
+          "description": "Optional storage volume to monitor for supported widgets (e.g. volume_2 for Synology DiskStation, or a volume name for QNAP)."
+        },
+        "hideErrors": {
+          "type": "boolean",
+          "description": "Hide API errors for this widget."
+        },
+        "instance": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "description": "Optional qui instance ID; omit to aggregate all instances."
+        }
+      },
+      "additionalProperties": true
+    },
+    "customApiMapping": {
+      "type": "object",
+      "description": "Field mapping for Custom API.",
+      "properties": {
+        "field": {
+          "type": "string",
+          "description": "Field path using dot notation (e.g. data.value)."
+        },
+        "label": {
+          "type": "string",
+          "description": "Display label."
+        },
+        "format": {
+          "type": "string",
+          "description": "Value display format.",
+          "enum": [
+            "text",
+            "number",
+            "float",
+            "percent",
+            "duration",
+            "bytes",
+            "bitrate",
+            "size",
+            "date",
+            "relativeDate"
+          ]
+        },
+        "remap": {
+          "type": "array",
+          "description": "Value remapping.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {},
+              "to": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "scale": {
+          "type": "number",
+          "description": "Multiplication factor."
+        },
+        "prefix": {
+          "type": "string",
+          "description": "Prefix added to the value."
+        },
+        "suffix": {
+          "type": "string",
+          "description": "Suffix added to the value."
+        },
+        "additionalField": {
+          "type": "object",
+          "description": "Secondary field (list mode).",
+          "properties": {
+            "field": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "format": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "highlight": {
+      "type": "object",
+      "description": "Highlighting rules for widget fields.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "numeric": {
+            "type": "array",
+            "description": "Numeric highlighting rules.",
+            "items": {
+              "$ref": "#/definitions/highlightNumericRule"
+            }
+          },
+          "string": {
+            "type": "array",
+            "description": "Text highlighting rules.",
+            "items": {
+              "$ref": "#/definitions/highlightStringRule"
+            }
+          },
+          "valueOnly": {
+            "type": "boolean",
+            "description": "Highlight only the value portion.",
+            "default": false
+          }
+        }
+      }
+    },
+    "highlightNumericRule": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Severity level.",
+          "enum": [
+            "good",
+            "warn",
+            "danger"
+          ]
+        },
+        "when": {
+          "type": "string",
+          "description": "Numeric comparison operator.",
+          "enum": [
+            "gt",
+            "gte",
+            "lt",
+            "lte",
+            "eq",
+            "ne",
+            "between",
+            "outside"
+          ]
+        },
+        "value": {
+          "type": "number",
+          "description": "Comparison value."
+        },
+        "negate": {
+          "type": "boolean",
+          "description": "Invert the rule.",
+          "default": false
+        }
+      },
+      "required": [
+        "level",
+        "when",
+        "value"
+      ]
+    },
+    "highlightStringRule": {
+      "type": "object",
+      "properties": {
+        "level": {
+          "type": "string",
+          "description": "Severity level.",
+          "enum": [
+            "good",
+            "warn",
+            "danger"
+          ]
+        },
+        "when": {
+          "type": "string",
+          "description": "Text comparison operator.",
+          "enum": [
+            "equals",
+            "includes",
+            "startsWith",
+            "endsWith",
+            "regex"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "description": "Comparison value."
+        },
+        "negate": {
+          "type": "boolean",
+          "description": "Invert the rule.",
+          "default": false
+        },
+        "caseSensitive": {
+          "type": "boolean",
+          "description": "Case-sensitive comparison.",
+          "default": false
+        },
+        "flags": {
+          "type": "string",
+          "description": "Regex flags (when when=regex)."
+        }
+      },
+      "required": [
+        "level",
+        "when",
+        "value"
+      ]
+    }
+  }
+}
